@@ -6,10 +6,10 @@ export default function Projects() {
   return (
     <section id="projects" style={styles.projectsSection}>
       <div style={styles.container}>
-        <h2 style={styles.heading}>Projects I've Built</h2>
+        <h2 style={styles.heading}>Projects I&apos;ve Built</h2>
         <p style={styles.description}>
-          Here are some of the projects I've worked on. Click on the links to
-          explore more!
+          Here are some of the projects I&apos;ve worked on. Click on the links
+          to explore more!
         </p>
         <div style={styles.grid}>
           {projectsData.map((project, index) => (

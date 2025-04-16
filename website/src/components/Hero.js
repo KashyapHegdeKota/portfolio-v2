@@ -18,12 +18,12 @@ export default function Hero() {
             }}
           />
           <h1 style={styles.heading}>
-            Hi, I'm <span style={styles.highlight}>Kashyap Hegde Kota</span>
+            Hi, I&apos;m <span style={styles.highlight}>Kashyap Hegde Kota</span>
           </h1>
           <p style={styles.paragraph}>
-            I’m a Computer Science student at Arizona State University with a
+            I&apos;m a Computer Science student at Arizona State University with a
             strong academic background and industry experience through a recent
-            software development internship. I’m passionate about technology,
+            software development internship. I&apos;m passionate about technology,
             quick to learn, and always looking for opportunities to grow and
             make a meaningful impact.
           </p>
