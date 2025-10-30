@@ -48,7 +48,13 @@ const styles = {
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+    gridTemplateColumns: "repeat(3, 1fr)",
     gap: "2rem",
+    "@media (max-width: 1024px)": {
+      gridTemplateColumns: "repeat(2, 1fr)",
+    },
+    "@media (max-width: 640px)": {
+      gridTemplateColumns: "1fr",
+    },
   },
 };
