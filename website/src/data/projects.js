@@ -6,7 +6,7 @@ export const projectsData = [
     description:
       "Architected a cloud-native microservice to simulate Formula 1 freight logistics and carbon footprint analysis. Built using a FastAPI backend deployed on AWS Lambda via GitHub Actions for automated CI/CD. The system leverages DynamoDB for low-latency geospatial data retrieval and a modern Next.js frontend to visualize flight paths and environmental impact in real-time. Designed to handle cross-platform dependency resolution and high-concurrency requests with zero idle server costs.",
     imageUrl: "/f1.jpg", // Place an image in public folder
-    tags:["AWS Lambda, FastAPI, DynamoDB, Next.js, CI/CD"],
+    tags:["AWS Lambda", "FastAPI", "DynamoDB", "Next.js", "CI/CD"],
     liveUrl: "https://f1-emissions-2026.vercel.app/",
     repoUrl: "https://github.com/KashyapHegdeKota/f1-emissions-2026"
   },
