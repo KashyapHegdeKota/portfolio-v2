@@ -2,6 +2,16 @@
 export const projectsData = [
   {
     id: 1,
+    title: "Research Paper Discovery Platform",
+    description:
+      "Built a modern research discovery platform that uses AI to find papers by meaning rather than just keywords for 250k+ arXiv research papers (CS.AI, CS.LG, CS.CL). Utilized Sentence-Transformers and FAISS for sub-10ms vector retrieval. Data processed using NVIDIA A100 GPU infrastructure. It leverages a FastAPI backend, and a polished Next.js 15 frontend and all deployed on Oracle Cloud's ARM infrastructure.",
+    imageUrl: "/research.jpg", // Place an image in public folder
+    tags: ["FastAPI", "FAISS", "Next.js", "Oracle Cloud"],
+    liveUrl: "https://research-indexing.kashyaphegde.com/",
+    repoUrl: "https://github.com/KashyapHegdeKota/ResearchPaperIndexing",
+  },
+  {
+    id: 2,
     title: "2026 F-1 Schedule Carbon Emissions Calculator",
     description:
       "Architected a cloud-native microservice to simulate Formula 1 freight logistics and carbon footprint analysis. Built using a FastAPI backend deployed on AWS Lambda via GitHub Actions for automated CI/CD. The system leverages DynamoDB for low-latency geospatial data retrieval and a modern Next.js frontend to visualize flight paths and environmental impact in real-time. Designed to handle cross-platform dependency resolution and high-concurrency requests with zero idle server costs.",
@@ -11,7 +21,7 @@ export const projectsData = [
     repoUrl: "https://github.com/KashyapHegdeKota/f1-emissions-2026"
   },
   {
-    id: 2,
+    id: 3,
     title: "CaptionMe: AI-Powered Image Captioning App",
     description:
       'CaptionMe is an end-to-end AI image captioning system built with Python, PyTorch, and Streamlit, licensed under MIT. It uses a ResNet-50 encoder for visual features and a custom LSTM decoder trained on Flickr8k to generate clear, human-like captions in real time. The project includes a full data pipeline, transfer learning, custom vocabulary building, and a polished web app for instant inference. I trained and deployed the model, added a command-line interface for batch or single image use, and documented the setup for local runs and Colab training.',
@@ -21,7 +31,7 @@ export const projectsData = [
     repoUrl: "https://github.com/KashyapHegdeKota/CaptionMe"
   },
   {
-    id: 3,
+    id: 4,
     title: "Family Guy Episode Recommender",
     description:
       'Family Guy Episode Recommender is a playful web app that picks the right Family Guy episode for your mood, built with a React frontend and an AWS serverless backend. Choose from eight moods, get a curated recommendation from a 20 plus episode library, and enjoy a clean, responsive UI with smooth animations. The backend uses AWS Lambda behind API Gateway, so it stays fast and scales automatically.',
@@ -35,7 +45,7 @@ export const projectsData = [
   //   title: "Convo "
   // }
   {
-    id: 4,
+    id: 5,
     title: "LeetBuddy: AI-Powered Coding Companion",
     description:
       "Project Synapse is a web-based AI co-pilot for algorithmic problem-solving. Instead of giving answers, it analyzes a user's code in a built-in editor and provides Socratic-style hints to guide them toward an optimal solution. The project's core is a custom-trained Code-Vision Language Model (LLaVA) that I fine-tuned using LoRA. To achieve this, I engineered a complete MLOps pipeline to create a unique multimodal dataset of scraped problems, LLM-generated hints, and sequential code snapshots captured with Selenium.",
@@ -44,7 +54,7 @@ export const projectsData = [
     repoUrl: "https://github.com/KashyapHegdeKota/LeetBuddy"
   },
   {
-    id: 5,
+    id: 6,
     title: "Crime Predictor",
     description:
       'AI-driven Crime Prediction Application that uses public crime data from the Arizona State University Police Department and machine learning algorithms to forecast potential crime risks based on location and time. Utilized Python’s scikit-learn library and Random Forest Classifier to predict crime probabilities with data from <a style = "color: rgb(69, 69, 243); white-space:nowrap; "href="https://cfo.asu.edu/crime-logs">https://cfo.asu.edu/crime-logs.</a>',
@@ -53,7 +63,7 @@ export const projectsData = [
     repoUrl: "https://github.com/KashyapHegdeKota/Crime-Predictor", // Link to GitHub repository
   },
   {
-    id: 6,
+    id: 7,
     title: "Weather Application",
     description:
       "The Weather App is a responsive web app providing real-time weather updates for cities worldwide. Using the OpenWeatherMap API, it features a search bar with autocomplete, current weather details, and a clean, responsive design. This project highlights skills in front-end development, API integration, and user-focused design.",
@@ -63,7 +73,7 @@ export const projectsData = [
     repoUrl: "https://github.com/KashyapHegdeKota/weather-app",
   },
   {
-    id: 7,
+    id: 8,
     title: "Pantry Tracker",
     description:
       "The Pantry Tracker is a modern web app built with Next.js and Firebase, featuring Google authentication, a Generative AI-powered chat interface, and Firestore for secure data storage. It offers a clean, responsive design for seamless navigation and user management.",
