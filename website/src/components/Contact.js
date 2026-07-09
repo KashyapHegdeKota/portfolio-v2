@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Send } from "lucide-react";
+import { Mail, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Github, Linkedin } from "./BrandIcons";
 import Magnetic from "./Magnetic";
 
 const matrix = "KASHYAP<>/{}[]011001AIUXCLOUD";

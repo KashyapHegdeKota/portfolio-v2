@@ -7,8 +7,10 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
+import { Github } from "./BrandIcons";
 
 const accentMap = {
   cyan: {
@@ -35,6 +37,7 @@ const accentMap = {
 
 export default function ProjectCard({ project, spanClass = "" }) {
   const accent = accentMap[project.accent] ?? accentMap.cyan;
+  const [imageLoaded, setImageLoaded] = useState(false);
   const pointerX = useMotionValue(0.5);
   const pointerY = useMotionValue(0.5);
   const smoothX = useSpring(pointerX, { stiffness: 190, damping: 24, mass: 0.7 });
@@ -81,8 +84,19 @@ export default function ProjectCard({ project, spanClass = "" }) {
             src={project.imageUrl}
             alt={`${project.title} interface preview`}
             fill
+            loading="lazy"
+            quality={82}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 720px"
-            className="object-cover transition duration-700 group-hover:scale-[1.035]"
+            className={`object-cover transition duration-700 group-hover:scale-[1.035] ${
+              imageLoaded ? "opacity-100 blur-0" : "opacity-0 blur-md"
+            }`}
+            onLoad={() => setImageLoaded(true)}
+          />
+          <div
+            className={`absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.05),rgba(255,255,255,0.12),rgba(255,255,255,0.05))] transition-opacity duration-500 ${
+              imageLoaded ? "opacity-0" : "opacity-100"
+            }`}
+            aria-hidden="true"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#101010] via-[#101010]/20 to-transparent" />
           <div className="absolute left-4 top-4 flex flex-wrap gap-2">

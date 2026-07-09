@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
+import { Github, Linkedin } from "./BrandIcons";
 import Magnetic from "./Magnetic";
 
 const metrics = [
