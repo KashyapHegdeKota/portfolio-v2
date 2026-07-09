@@ -31,6 +31,13 @@ const variants = {
     backgroundColor: "rgba(255, 107, 53, 0.2)",
     borderColor: "rgba(255, 107, 53, 0.82)",
   },
+  launch: {
+    scale: 2.55,
+    opacity: 0.98,
+    borderRadius: "8px",
+    backgroundColor: "rgba(34, 197, 94, 0.2)",
+    borderColor: "rgba(187, 247, 208, 0.94)",
+  },
 };
 
 function getCursorMode(target) {
@@ -43,9 +50,13 @@ function getCursorMode(target) {
     return "idle";
   }
 
-  return trigger.tagName === "BUTTON" || trigger.getAttribute("data-cursor") === "button"
-    ? "button"
-    : "link";
+  const cursorMode = trigger.getAttribute("data-cursor");
+
+  if (cursorMode === "launch") {
+    return "launch";
+  }
+
+  return trigger.tagName === "BUTTON" || cursorMode === "button" ? "button" : "link";
 }
 
 export default function FluidCursor() {
@@ -92,7 +103,7 @@ export default function FluidCursor() {
   return (
     <motion.div
       aria-hidden="true"
-      className="fixed left-0 top-0 z-[100] hidden h-[26px] w-[26px] border md:block"
+      className="fixed left-0 top-0 z-[200] hidden h-[26px] w-[26px] border md:block"
       animate={mode}
       initial={false}
       style={{

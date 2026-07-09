@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Github, Linkedin } from "./BrandIcons";
 import Magnetic from "./Magnetic";
 
@@ -30,7 +31,26 @@ const links = [
   },
 ];
 
+const heroRevealVariants = {
+  hidden: {
+    opacity: 0,
+    y: 52,
+    filter: "blur(18px)",
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.82,
+      ease: [0.22, 1, 0.36, 1],
+      staggerChildren: 0.08,
+    },
+  },
+};
+
 export default function Hero() {
+  const [introReady, setIntroReady] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const smoothX = useSpring(mouseX, { stiffness: 110, damping: 26, mass: 0.7 });
@@ -44,6 +64,20 @@ export default function Hero() {
     mouseX.set((event.clientX - rect.left) / rect.width - 0.5);
     mouseY.set((event.clientY - rect.top) / rect.height - 0.5);
   }
+
+  useEffect(() => {
+    const revealHero = () => setIntroReady(true);
+
+    if (!document.documentElement.classList.contains("f1-loader-active")) {
+      revealHero();
+    }
+
+    window.addEventListener("f1-loader-lights-out", revealHero);
+
+    return () => {
+      window.removeEventListener("f1-loader-lights-out", revealHero);
+    };
+  }, []);
 
   return (
     <section
@@ -62,7 +96,12 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="content-grid relative z-10 grid items-end gap-12 lg:grid-cols-[1.08fr_0.92fr]">
+      <motion.div
+        className="content-grid relative z-10 grid items-end gap-12 lg:grid-cols-[1.08fr_0.92fr]"
+        initial="hidden"
+        animate={introReady ? "visible" : "hidden"}
+        variants={heroRevealVariants}
+      >
         <div>
           <motion.div
             className="mb-7 flex flex-wrap items-center gap-3"
@@ -175,7 +214,7 @@ export default function Hero() {
             ))}
           </div>
         </motion.aside>
-      </div>
+      </motion.div>
 
       <div className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 items-center gap-4 md:flex">
         <div className="flex gap-2">
