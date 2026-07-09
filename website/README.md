@@ -12,8 +12,9 @@ npm run build
 npm run start
 ```
 
-The dev server runs with Turbopack. Production builds statically prerender the
-home page, blog index, and every MDX slug generated from local content.
+The dev server runs with the stable Next.js dev bundler. Production builds
+statically prerender the home page, blog index, and every MDX slug generated
+from local content.
 
 ## Route Map
 
