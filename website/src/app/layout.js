@@ -1,5 +1,6 @@
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import FluidCursor from "@/components/FluidCursor";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
       <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}>
         <div className="site-shell">
           <div className="noise-layer" aria-hidden="true" />
+          <FluidCursor />
           <Navbar />
           <main>{children}</main>
           <Footer />

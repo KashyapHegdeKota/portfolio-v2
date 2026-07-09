@@ -55,6 +55,15 @@ a {
   text-decoration: none;
 }
 
+@media (pointer: fine) {
+  .has-fluid-cursor,
+  .has-fluid-cursor a,
+  .has-fluid-cursor button,
+  .has-fluid-cursor [data-cursor] {
+    cursor: none;
+  }
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;
