@@ -91,7 +91,7 @@ export default async function BlogPostPage({ params }) {
           </p>
         </header>
 
-        <div className="prose prose-invert max-w-none">
+        <div className="prose prose-invert prose-blog max-w-none">
           <MDXRemote source={post.content} components={mdxComponents} />
         </div>
       </div>

@@ -149,6 +149,73 @@ canvas {
   text-wrap: pretty;
 }
 
+.prose-blog {
+  color: rgba(245, 242, 234, 0.68);
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  line-height: 1.85;
+}
+
+.prose-blog > * {
+  max-width: 760px;
+}
+
+.prose-blog > h2,
+.prose-blog > h3,
+.prose-blog > h4 {
+  margin-top: 2.4em;
+  margin-bottom: 0.7em;
+  color: var(--foreground);
+  line-height: 1.05;
+}
+
+.prose-blog > p {
+  margin-top: 1.15em;
+  margin-bottom: 1.15em;
+}
+
+.prose-blog strong {
+  color: var(--foreground);
+}
+
+.prose-blog blockquote {
+  margin-block: 2rem;
+  border-left: 2px solid var(--ember);
+  padding: 1rem 0 1rem 1.25rem;
+  color: rgba(245, 242, 234, 0.78);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.prose-blog pre {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.1rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.prose-blog code {
+  border: 1px solid rgba(200, 255, 93, 0.18);
+  border-radius: 6px;
+  background: rgba(200, 255, 93, 0.07);
+  color: var(--acid);
+  padding: 0.12rem 0.34rem;
+  font-size: 0.9em;
+}
+
+.prose-blog pre code {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.prose-blog img {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
