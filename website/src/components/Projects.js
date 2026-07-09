@@ -2,18 +2,37 @@ import ProjectCard from "./ProjectCard";
 import { projectsData } from "@/data/projects";
 import AnimatedSection from "./AnimatedSection";
 
+const spanMap = {
+  feature: "md:col-span-4 md:row-span-2",
+  wide: "md:col-span-3",
+  tall: "md:col-span-2 md:row-span-2",
+  standard: "md:col-span-2",
+};
+
 export default function Projects() {
   return (
-    <section id="projects" style={styles.projectsSection}>
-      <div style={styles.container}>
-        <h2 style={styles.heading}>Projects I&apos;ve Built</h2>
-        <p style={styles.description}>
-          Here are some of the projects I&apos;ve worked on. Click on the links
-          to explore more!
-        </p>
-        <div style={styles.grid}>
+    <section id="projects" className="section-pad relative">
+      <div className="content-grid">
+        <AnimatedSection className="mb-12 max-w-3xl">
+          <p className="mb-4 text-sm font-semibold uppercase text-cyan">
+            Selected systems
+          </p>
+          <h2 className="fluid-copy font-display text-[clamp(2.5rem,12vw,6.5rem)] font-semibold leading-[0.92] text-porcelain">
+            Work that moves from model to interface.
+          </h2>
+          <p className="mt-6 max-w-2xl text-base leading-7 text-white/58">
+            A mix of AI infrastructure, serverless products, and expressive web
+            apps built with an eye for speed, clarity, and small details.
+          </p>
+        </AnimatedSection>
+
+        <div className="grid auto-rows-[minmax(320px,auto)] grid-cols-1 gap-4 md:grid-cols-6">
           {projectsData.map((project, index) => (
-            <AnimatedSection key={project.id} delay={0.3 + index * 0.1}>
+            <AnimatedSection
+              key={project.slug}
+              className={spanMap[project.span] ?? spanMap.standard}
+              delay={0.08 * index}
+            >
               <ProjectCard project={project} />
             </AnimatedSection>
           ))}
@@ -22,39 +41,3 @@ export default function Projects() {
     </section>
   );
 }
-
-const styles = {
-  projectsSection: {
-    padding: "4rem 0",
-    backgroundColor: "#f9fafb",
-  },
-  container: {
-    maxWidth: "1200px",
-    margin: "0 auto",
-    padding: "0 1rem",
-  },
-  heading: {
-    fontSize: "2.5rem",
-    fontWeight: "bold",
-    color: "#1f2937",
-    textAlign: "center",
-    marginBottom: "1rem",
-  },
-  description: {
-    fontSize: "1rem",
-    color: "#6b7280",
-    textAlign: "center",
-    marginBottom: "2rem",
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: "2rem",
-    "@media (max-width: 1024px)": {
-      gridTemplateColumns: "repeat(2, 1fr)",
-    },
-    "@media (max-width: 640px)": {
-      gridTemplateColumns: "1fr",
-    },
-  },
-};

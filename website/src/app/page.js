@@ -1,13 +1,17 @@
 import Hero from "@/components/Hero";
+import TechMarquee from "@/components/TechMarquee";
 import Projects from "@/components/Projects";
+import ExperienceTimeline from "@/components/ExperienceTimeline";
 import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
     <>
-      <Hero /> {/* Renders the About/Introduction section */}
-      <Projects /> {/* Renders the Projects section */}
-      <Contact /> {/* Renders the Contact section */}
+      <Hero />
+      <TechMarquee />
+      <Projects />
+      <ExperienceTimeline />
+      <Contact />
     </>
   );
 }

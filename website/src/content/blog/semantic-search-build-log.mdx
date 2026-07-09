@@ -1,0 +1,41 @@
+---
+title: "Building Semantic Search for Research Papers"
+description: "A short architecture note on turning dense embeddings, FAISS indexes, and a clean interface into a research discovery loop."
+date: "2026-06-18"
+tags:
+  - AI Search
+  - FastAPI
+  - FAISS
+featured: true
+draft: false
+---
+
+Semantic search gets interesting when the product stops feeling like a database
+and starts feeling like a collaborator. The research paper discovery platform
+was built around that idea: query by meaning, surface the strongest matches, and
+make the path from question to paper feel immediate.
+
+## System Shape
+
+The core loop is intentionally small:
+
+- Normalize metadata from arXiv exports.
+- Generate embeddings with Sentence Transformers.
+- Store vectors in FAISS for low-latency nearest-neighbor retrieval.
+- Serve results through FastAPI and render them in a focused Next.js interface.
+
+That shape kept the product understandable while leaving room for better ranking,
+filters, and citation-aware exploration later.
+
+## Interface Notes
+
+The frontend needed to communicate confidence without becoming noisy. The result
+cards prioritize title, abstract signal, and immediate external actions. Search
+feels fast because the interface avoids visual churn between request and result.
+
+```txt
+query -> embedding -> FAISS top-k -> metadata hydrate -> ranked cards
+```
+
+The lesson: search products live or die by the gap between a user's language and
+the system's representation of intent.

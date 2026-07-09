@@ -1,0 +1,35 @@
+---
+title: "Serverless Product Polish"
+description: "Notes on making AWS Lambda, API Gateway, and a modern frontend feel like a cohesive product instead of a collection of services."
+date: "2026-05-22"
+tags:
+  - Serverless
+  - AWS
+  - Product Engineering
+featured: false
+draft: false
+---
+
+Serverless architecture is most useful when the user never notices it. The F1
+carbon emissions calculator and the episode recommender both benefited from the
+same discipline: keep cold paths lean, make data access predictable, and spend
+the saved complexity budget on the interface.
+
+## Constraints That Helped
+
+Good constraints turned into better product choices:
+
+- Avoid persistent servers for workloads with uneven traffic.
+- Keep API payloads shaped around the exact screen that consumes them.
+- Make deployment repeatable through GitHub Actions.
+- Treat latency as part of the visual design.
+
+## Product Texture
+
+The UI work mattered as much as the backend. Empty states, hover states, loading
+transitions, and copy all helped the products feel intentional instead of
+assembled.
+
+> The architecture is doing its job when the interface feels calm.
+
+That is the thread I want to keep following across cloud-heavy products.
