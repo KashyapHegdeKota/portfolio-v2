@@ -112,7 +112,7 @@ export default function ExperienceTimeline() {
       <div className="content-grid">
         <div className="mb-12 max-w-3xl">
           <p className="mb-4 text-sm font-semibold uppercase text-ember">Signal path</p>
-          <h2 className="font-display text-[clamp(2.6rem,6vw,6.5rem)] font-semibold leading-[0.9] text-porcelain">
+          <h2 className="fluid-copy font-display text-[clamp(2.5rem,12vw,6.5rem)] font-semibold leading-[0.92] text-porcelain">
             Experience shaped by building in public.
           </h2>
         </div>

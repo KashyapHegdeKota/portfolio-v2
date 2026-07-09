@@ -94,7 +94,7 @@ export default function Contact() {
             onMouseLeave={() => animateTo(defaultPhrase)}
           >
             <p className="mb-6 text-sm font-semibold uppercase text-acid">Contact</p>
-            <h2 className="font-display min-h-[0.92em] text-[clamp(3rem,9vw,9.5rem)] font-semibold leading-[0.88] text-porcelain">
+            <h2 className="fluid-copy font-display min-h-[0.92em] text-[clamp(2.7rem,13vw,9.5rem)] font-semibold leading-[0.9] text-porcelain">
               {scramble(label, tick)}
             </h2>
             <p className="mt-7 max-w-2xl text-base leading-8 text-white/58">

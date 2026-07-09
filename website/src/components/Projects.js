@@ -17,7 +17,7 @@ export default function Projects() {
           <p className="mb-4 text-sm font-semibold uppercase text-cyan">
             Selected systems
           </p>
-          <h2 className="font-display text-[clamp(2.6rem,6vw,6.5rem)] font-semibold leading-[0.9] text-porcelain">
+          <h2 className="fluid-copy font-display text-[clamp(2.5rem,12vw,6.5rem)] font-semibold leading-[0.92] text-porcelain">
             Work that moves from model to interface.
           </h2>
           <p className="mt-6 max-w-2xl text-base leading-7 text-white/58">

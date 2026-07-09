@@ -25,6 +25,7 @@
 
 html {
   min-width: 320px;
+  max-width: 100%;
   background: var(--background);
   color-scheme: dark;
   scroll-padding-top: 120px;
@@ -33,6 +34,7 @@ html {
 
 body {
   min-height: 100vh;
+  max-width: 100%;
   margin: 0;
   overflow-x: hidden;
   background:
@@ -131,10 +133,12 @@ canvas {
 
 .content-grid {
   width: min(100%, 1180px);
+  min-width: 0;
   margin-inline: auto;
 }
 
 .glass-panel {
+  min-width: 0;
   border: 1px solid var(--line);
   background: var(--glass);
   box-shadow: var(--shadow-soft);
@@ -147,6 +151,11 @@ canvas {
 
 .text-pretty {
   text-wrap: pretty;
+}
+
+.fluid-copy {
+  hyphens: auto;
+  overflow-wrap: anywhere;
 }
 
 .prose-blog {
@@ -214,6 +223,16 @@ canvas {
 .prose-blog img {
   border: 1px solid var(--line);
   border-radius: 8px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --page-x: clamp(1rem, 5vw, 1.4rem);
+  }
+
+  .section-pad {
+    padding-block: clamp(4.5rem, 14vw, 6.5rem);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

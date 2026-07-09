@@ -76,7 +76,7 @@ export default async function BlogPostPage({ params }) {
               </span>
             ))}
           </div>
-          <h1 className="font-display max-w-5xl text-[clamp(3rem,8vw,8.8rem)] font-semibold leading-[0.86] text-porcelain">
+          <h1 className="fluid-copy font-display max-w-5xl text-[clamp(2.8rem,13vw,8.8rem)] font-semibold leading-[0.9] text-porcelain">
             {post.title}
           </h1>
           <div className="mt-7 flex flex-wrap gap-4 text-sm text-white/48">
