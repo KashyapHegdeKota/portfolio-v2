@@ -3,9 +3,10 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
+import Magnetic from "./Magnetic";
 
 /**
- * @typedef {"loading" | "counting" | "lights-out" | "complete"} LoaderStatus
+ * @typedef {"loading" | "counting" | "ready" | "launch" | "complete"} LoaderStatus
  *
  * @typedef {Object} F1PageLoaderProps
  * @property {() => void} [onComplete]
@@ -13,34 +14,44 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * @property {string} [audioSrc] Place your supplied "5 lights out and away we go" audio in /public and pass the public path here.
  * @property {boolean} [soundEnabled]
  * @property {number} [lightIntervalMs] Interval between each red light, kept between 500ms and 1000ms.
- * @property {[number, number]} [randomPauseRangeMs] Randomized delay after all five lights are lit.
  */
 
 const LIGHT_COUNT = 5;
 const DEFAULT_AUDIO_SRC = "/audio/f1-lights-out-and-away-we-go.mp3";
-const DEFAULT_PAUSE_RANGE_MS = [800, 2500];
+const LAUNCH_TRANSITION_SECONDS = 5;
 
 const overlayVariants = {
   loading: { opacity: 1 },
   counting: { opacity: 1 },
-  "lights-out": { opacity: 1 },
+  ready: { opacity: 1 },
+  launch: { opacity: 1 },
   exit: {
     opacity: 0,
-    transition: { duration: 0.64, ease: [0.76, 0, 0.24, 1] },
+    transition: {
+      duration: LAUNCH_TRANSITION_SECONDS,
+      ease: [0.76, 0, 0.24, 1],
+    },
   },
 };
 
 const topPanelVariants = {
   exit: {
     y: "-104%",
-    transition: { duration: 0.78, ease: [0.76, 0, 0.24, 1] },
+    transition: {
+      duration: LAUNCH_TRANSITION_SECONDS,
+      ease: [0.76, 0, 0.24, 1],
+    },
   },
 };
 
 const bottomPanelVariants = {
   exit: {
     y: "104%",
-    transition: { duration: 0.78, ease: [0.76, 0, 0.24, 1], delay: 0.04 },
+    transition: {
+      duration: LAUNCH_TRANSITION_SECONDS,
+      ease: [0.76, 0, 0.24, 1],
+      delay: 0.04,
+    },
   },
 };
 
@@ -52,11 +63,17 @@ const gantryVariants = {
     scale: 1,
     transition: { type: "spring", stiffness: 180, damping: 22, mass: 0.8 },
   },
-  "lights-out": {
-    opacity: 0,
-    y: -26,
-    scale: 1.06,
-    transition: { duration: 0.18, ease: "easeOut" },
+  ready: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.16, ease: "easeOut" },
+  },
+  launch: {
+    opacity: 1,
+    y: -8,
+    scale: 1.02,
+    transition: { type: "spring", stiffness: 240, damping: 22, mass: 0.72 },
   },
 };
 
@@ -75,15 +92,14 @@ const lightVariants = {
       "0 0 30px rgba(239,68,68,0.8), 0 0 72px rgba(239,68,68,0.46), inset 0 0 18px rgba(255,255,255,0.28)",
     scale: 1.035,
   },
+  green: {
+    backgroundColor: "rgb(34, 197, 94)",
+    borderColor: "rgba(187, 247, 208, 0.94)",
+    boxShadow:
+      "0 0 30px rgba(34,197,94,0.82), 0 0 86px rgba(34,197,94,0.52), inset 0 0 18px rgba(255,255,255,0.34)",
+    scale: 1.045,
+  },
 };
-
-/**
- * @param {number} min
- * @param {number} max
- */
-function randomBetween(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 /**
  * @param {number} value
@@ -101,11 +117,11 @@ export default function F1PageLoader({
   audioSrc = DEFAULT_AUDIO_SRC,
   soundEnabled = true,
   lightIntervalMs = 700,
-  randomPauseRangeMs = DEFAULT_PAUSE_RANGE_MS,
 }) {
   const [status, setStatus] = useState(/** @type {LoaderStatus} */ ("loading"));
   const [activeLights, setActiveLights] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [readyForLaunch, setReadyForLaunch] = useState(false);
   const timeoutRefs = useRef(/** @type {number[]} */ ([]));
   const audioRef = useRef(/** @type {HTMLAudioElement | null} */ (null));
   const audioContextRef = useRef(/** @type {AudioContext | null} */ (null));
@@ -178,6 +194,21 @@ export default function F1PageLoader({
     });
   }, [soundEnabled]);
 
+  const handleLaunch = useCallback(async () => {
+    if (!readyForLaunch || status !== "ready") {
+      return;
+    }
+
+    setReadyForLaunch(false);
+    setStatus("launch");
+    setActiveLights(LIGHT_COUNT);
+    playLightsOutAudio();
+    onLightsOut?.();
+
+    await wait(120);
+    setVisible(false);
+  }, [onLightsOut, playLightsOutAudio, readyForLaunch, status, wait]);
+
   useEffect(() => {
     if (soundEnabled && audioSrc) {
       audioRef.current = new Audio(audioSrc);
@@ -196,7 +227,6 @@ export default function F1PageLoader({
   useEffect(() => {
     let cancelled = false;
     const interval = clampLightInterval(lightIntervalMs);
-    const [minPause, maxPause] = randomPauseRangeMs;
 
     async function runSequence() {
       await wait(260);
@@ -218,22 +248,15 @@ export default function F1PageLoader({
         playCountdownBeep();
       }
 
-      await wait(randomBetween(minPause, maxPause));
+      await wait(340);
 
       if (cancelled) {
         return;
       }
 
-      setStatus("lights-out");
-      setActiveLights(0);
-      playLightsOutAudio();
-      onLightsOut?.();
-
-      await wait(90);
-
-      if (!cancelled) {
-        setVisible(false);
-      }
+      setStatus("ready");
+      setActiveLights(LIGHT_COUNT);
+      setReadyForLaunch(true);
     }
 
     void runSequence();
@@ -245,10 +268,7 @@ export default function F1PageLoader({
   }, [
     clearTimers,
     lightIntervalMs,
-    onLightsOut,
     playCountdownBeep,
-    playLightsOutAudio,
-    randomPauseRangeMs,
     wait,
   ]);
 
@@ -303,18 +323,19 @@ export default function F1PageLoader({
             >
               <div className="flex items-center gap-2 rounded-[8px] border border-white/10 bg-black/60 p-2 sm:gap-4 sm:p-4">
                 {Array.from({ length: LIGHT_COUNT }).map((_, index) => {
+                  const isGreen = status === "launch";
                   const isLit = activeLights > index;
 
                   return (
                     <motion.div
                       key={index}
                       className="grid h-[clamp(3rem,11vw,6.2rem)] w-[clamp(3rem,11vw,6.2rem)] place-items-center rounded-full border bg-red-950/30 shadow-inner"
-                      animate={isLit ? "lit" : "unlit"}
+                      animate={isGreen ? "green" : isLit ? "lit" : "unlit"}
                       initial="unlit"
                       variants={lightVariants}
                       transition={
-                        status === "lights-out"
-                          ? { duration: 0 }
+                        status === "launch"
+                          ? { duration: 0.16, ease: "easeOut" }
                           : {
                               type: "spring",
                               stiffness: 380,
@@ -323,7 +344,7 @@ export default function F1PageLoader({
                             }
                       }
                       aria-label={`Race start light ${index + 1} ${
-                        isLit ? "on" : "off"
+                        isGreen ? "green" : isLit ? "red" : "off"
                       }`}
                     >
                       <span className="h-[70%] w-[70%] rounded-full border border-white/10 bg-[radial-gradient(circle_at_35%_28%,rgba(255,255,255,0.38),transparent_18%),radial-gradient(circle,rgba(255,255,255,0.08),transparent_62%)]" />
@@ -335,11 +356,35 @@ export default function F1PageLoader({
 
             <motion.p
               className="mt-8 min-h-6 text-center font-display text-sm font-semibold uppercase tracking-[0.34em] text-red-200/70"
-              animate={{ opacity: status === "lights-out" ? 1 : 0.58 }}
+              animate={{ opacity: status === "ready" || status === "launch" ? 1 : 0.58 }}
               transition={{ duration: 0.18 }}
             >
-              {status === "lights-out" ? "Away we go" : "Awaiting race control"}
+              {status === "launch"
+                ? "Away we go"
+                : status === "ready"
+                  ? "Race control ready"
+                  : "Awaiting race control"}
             </motion.p>
+
+            <AnimatePresence>
+              {readyForLaunch && (
+                <Magnetic strength={0.22} rotation={2.5} scale={1.045} cursor="launch">
+                  <motion.button
+                    type="button"
+                    className="group mt-7 inline-flex h-14 items-center justify-center gap-3 rounded-[8px] border border-green-200/55 bg-green-400 px-7 font-display text-sm font-bold uppercase tracking-[0.24em] text-[#031108] shadow-[0_0_42px_rgba(34,197,94,0.55),inset_0_1px_0_rgba(255,255,255,0.55)] transition-colors hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-100 focus:ring-offset-2 focus:ring-offset-[#0a0a0a]"
+                    initial={{ opacity: 0, y: 18, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                    onClick={handleLaunch}
+                    data-cursor="launch"
+                  >
+                    <span className="h-2 w-2 rounded-full bg-[#031108] shadow-[0_0_12px_rgba(3,17,8,0.55)] transition-transform group-hover:scale-125" />
+                    Let&apos;s go
+                  </motion.button>
+                </Magnetic>
+              )}
+            </AnimatePresence>
           </div>
         </motion.div>
       )}
