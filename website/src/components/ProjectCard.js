@@ -1,3 +1,12 @@
+"use client";
+
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
 import Image from "next/image";
 
@@ -26,12 +35,45 @@ const accentMap = {
 
 export default function ProjectCard({ project, spanClass = "" }) {
   const accent = accentMap[project.accent] ?? accentMap.cyan;
+  const pointerX = useMotionValue(0.5);
+  const pointerY = useMotionValue(0.5);
+  const smoothX = useSpring(pointerX, { stiffness: 190, damping: 24, mass: 0.7 });
+  const smoothY = useSpring(pointerY, { stiffness: 190, damping: 24, mass: 0.7 });
+  const rotateX = useTransform(smoothY, [0, 1], [5, -5]);
+  const rotateY = useTransform(smoothX, [0, 1], [-5, 5]);
+  const glareX = useTransform(smoothX, [0, 1], ["0%", "100%"]);
+  const glareY = useTransform(smoothY, [0, 1], ["0%", "100%"]);
+  const glare = useMotionTemplate`radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.18), transparent 34%)`;
+
+  function handlePointerMove(event) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    pointerX.set((event.clientX - rect.left) / rect.width);
+    pointerY.set((event.clientY - rect.top) / rect.height);
+  }
+
+  function handlePointerLeave() {
+    pointerX.set(0.5);
+    pointerY.set(0.5);
+  }
 
   return (
-    <article
+    <motion.article
       className={`group relative min-h-[320px] overflow-hidden rounded-[8px] border border-white/10 bg-[#101010]/72 transition duration-500 ${accent.border} ${accent.glow} ${spanClass}`}
+      onPointerLeave={handlePointerLeave}
+      onPointerMove={handlePointerMove}
+      style={{
+        rotateX,
+        rotateY,
+        transformPerspective: 1000,
+        transformStyle: "preserve-3d",
+      }}
     >
       <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.10),transparent_36%,rgba(255,255,255,0.04))] opacity-70" />
+      <motion.div
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{ background: glare }}
+        aria-hidden="true"
+      />
 
       <div className="relative flex h-full min-h-[320px] flex-col">
         <div className="relative min-h-[210px] flex-1 overflow-hidden border-b border-white/10">
@@ -109,6 +151,6 @@ export default function ProjectCard({ project, spanClass = "" }) {
           </div>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
