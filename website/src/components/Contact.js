@@ -117,7 +117,7 @@ export default function Contact() {
           </motion.div>
 
           <motion.div
-            className="grid content-end gap-3"
+            className="grid content-end divide-y divide-white/10 border-y border-white/10"
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.36 }}
@@ -129,7 +129,7 @@ export default function Contact() {
                   href={contact.href}
                   target={contact.href.startsWith("http") ? "_blank" : undefined}
                   rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="glass-panel flex w-full items-center justify-between gap-4 rounded-[8px] p-4 transition duration-300 hover:border-cyan/40"
+                  className="flex w-full items-center justify-between gap-4 py-4 transition-colors duration-300 hover:text-cyan"
                   onMouseEnter={() => animateTo(contact.value)}
                   onFocus={() => animateTo(contact.value)}
                   data-cursor="link"
@@ -142,7 +142,7 @@ export default function Contact() {
                       {contact.value}
                     </span>
                   </span>
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[8px] border border-white/10 bg-white/[0.05] text-cyan">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center text-cyan">
                     <contact.icon size={17} />
                   </span>
                 </a>

@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-28T19:28:11Z",
+  "title": "Design System: Kashyap Hegde Kota Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Workshop Ink",
+        "canonical": "#0a0a0a",
+        "tonalRamp": ["#0a0a0a", "#202020", "#383838", "#545454", "#737373", "#969696", "#c3c3c3", "#f2f2f2"]
+      },
+      "elevated-ink": {
+        "role": "neutral",
+        "displayName": "Elevated Ink",
+        "canonical": "#111111",
+        "tonalRamp": ["#111111", "#262626", "#3d3d3d", "#595959", "#777777", "#999999", "#c5c5c5", "#f2f2f2"]
+      },
+      "porcelain": {
+        "role": "neutral",
+        "displayName": "Warm Porcelain",
+        "canonical": "#f5f2ea",
+        "tonalRamp": ["#211f1a", "#3c3931", "#58544a", "#767168", "#979187", "#b9b3a9", "#d9d4cb", "#f5f2ea"]
+      },
+      "muted-stone": {
+        "role": "neutral",
+        "displayName": "Muted Stone",
+        "canonical": "#a6a299",
+        "tonalRamp": ["#201f1b", "#3a3832", "#55524b", "#716e66", "#8d8981", "#aaa69e", "#d0ccc4", "#f4f1e9"]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline Porcelain",
+        "canonical": "rgba(245, 242, 234, 0.12)",
+        "tonalRamp": ["rgba(245,242,234,0.04)", "rgba(245,242,234,0.08)", "rgba(245,242,234,0.12)", "rgba(245,242,234,0.18)", "rgba(245,242,234,0.28)", "rgba(245,242,234,0.42)", "rgba(245,242,234,0.64)", "rgba(245,242,234,0.9)"]
+      },
+      "glass": {
+        "role": "neutral",
+        "displayName": "Workshop Glass",
+        "canonical": "rgba(18, 18, 18, 0.68)",
+        "tonalRamp": ["rgba(8,8,8,0.68)", "rgba(18,18,18,0.68)", "rgba(36,36,36,0.68)", "rgba(62,62,62,0.68)", "rgba(94,94,94,0.68)", "rgba(132,132,132,0.68)", "rgba(182,182,182,0.68)", "rgba(236,236,236,0.68)"]
+      },
+      "glass-strong": {
+        "role": "neutral",
+        "displayName": "Workshop Glass Strong",
+        "canonical": "rgba(26, 26, 26, 0.82)",
+        "tonalRamp": ["rgba(10,10,10,0.82)", "rgba(26,26,26,0.82)", "rgba(45,45,45,0.82)", "rgba(70,70,70,0.82)", "rgba(102,102,102,0.82)", "rgba(142,142,142,0.82)", "rgba(190,190,190,0.82)", "rgba(238,238,238,0.82)"]
+      },
+      "signal-cyan": {
+        "role": "primary",
+        "displayName": "Signal Cyan",
+        "canonical": "#8be9fd",
+        "tonalRamp": ["oklch(20% 0.07 210)", "oklch(30% 0.09 210)", "oklch(40% 0.11 210)", "oklch(52% 0.13 210)", "oklch(64% 0.13 210)", "oklch(76% 0.12 210)", "oklch(86% 0.09 210)", "oklch(95% 0.04 210)"]
+      },
+      "ignition-orange": {
+        "role": "secondary",
+        "displayName": "Ignition Orange",
+        "canonical": "#ff6b35",
+        "tonalRamp": ["oklch(20% 0.09 40)", "oklch(30% 0.13 40)", "oklch(42% 0.17 40)", "oklch(54% 0.2 40)", "oklch(66% 0.2 40)", "oklch(77% 0.16 40)", "oklch(87% 0.1 40)", "oklch(95% 0.04 40)"]
+      },
+      "circuit-violet": {
+        "role": "secondary",
+        "displayName": "Circuit Violet",
+        "canonical": "#a78bfa",
+        "tonalRamp": ["oklch(20% 0.08 295)", "oklch(30% 0.12 295)", "oklch(42% 0.16 295)", "oklch(54% 0.19 295)", "oklch(66% 0.18 295)", "oklch(77% 0.14 295)", "oklch(87% 0.09 295)", "oklch(95% 0.04 295)"]
+      },
+      "voltage-lime": {
+        "role": "tertiary",
+        "displayName": "Voltage Lime",
+        "canonical": "#c8ff5d",
+        "tonalRamp": ["oklch(20% 0.07 125)", "oklch(30% 0.1 125)", "oklch(42% 0.14 125)", "oklch(54% 0.17 125)", "oklch(66% 0.18 125)", "oklch(78% 0.17 125)", "oklch(88% 0.12 125)", "oklch(95% 0.05 125)"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero and route-defining statements with tightly compressed line height." },
+      "headline": { "displayName": "Headline", "purpose": "Section-level editorial statements." },
+      "title": { "displayName": "Title", "purpose": "Project, article, and timeline titles." },
+      "body": { "displayName": "Body", "purpose": "Explanatory copy and long-form reading." },
+      "body-small": { "displayName": "Body Small", "purpose": "Cards, controls, and secondary information." },
+      "label": { "displayName": "Technical Label", "purpose": "Metrics, status, dates, and categorical metadata." }
+    },
+    "shadows": [
+      { "name": "structural-soft", "value": "0 24px 90px rgba(0, 0, 0, 0.55)", "purpose": "Ambient separation for glass panels and code surfaces." },
+      { "name": "signal-glow", "value": "0 0 70px rgba(139, 233, 253, 0.16)", "purpose": "Active technical emphasis and timeline focus." },
+      { "name": "navigation-lift", "value": "0 18px 70px rgba(0, 0, 0, 0.38)", "purpose": "Persistent separation for the floating navigation shell." },
+      { "name": "ignition-glow", "value": "0 0 70px rgba(255, 107, 53, 0.18)", "purpose": "Warm interactive emphasis where Ignition Orange is assigned." }
+    ],
+    "motion": [
+      { "name": "f1-signature-sequence", "value": "1.5–2.5s total; automatic completion", "purpose": "Binding five-light signature entrance shown in full once per browsing session, with an obvious skip path." },
+      { "name": "f1-reduced-motion", "value": "bypass or near-immediate branded state", "purpose": "Reduced-motion path that makes the portfolio usable without waiting through the full sequence." },
+      { "name": "reveal-decisive", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Large content reveals and hero entrance." },
+      { "name": "route-transition", "value": "480ms cubic-bezier(0.76, 0, 0.24, 1)", "purpose": "Opacity, blur, and vertical continuity between routes." },
+      { "name": "magnetic-spring", "value": "spring(320, 24, 0.62)", "purpose": "Direct pointer response on important controls." },
+      { "name": "active-pill-spring", "value": "spring(420, 34)", "purpose": "Navigation active-state movement." },
+      { "name": "marquee-linear", "value": "26s linear infinite", "purpose": "Technology marquee; pauses during pointer interaction." },
+      { "name": "reduced-motion-collapse", "value": "0.001ms; one iteration", "purpose": "Global reduced-motion fallback." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The decisive call to action; warm and high-contrast at rest, Voltage Lime on interaction.",
+      "html": "<button class=\"ds-btn-primary\">EXPLORE WORK</button>",
+      "css": ".ds-btn-primary { min-height: 48px; padding: 12px 20px; border: 0; border-radius: var(--radius, 8px); background: var(--foreground, #f5f2ea); color: var(--background, #0a0a0a); font: 600 14px/1.2 var(--font-inter, Inter, ui-sans-serif, system-ui, sans-serif); transition: background-color 200ms ease, transform 200ms ease; } .ds-btn-primary:hover { background: var(--acid, #c8ff5d); transform: translateY(-1px); } .ds-btn-primary:active { transform: translateY(0) scale(0.98); } .ds-btn-primary:focus-visible { outline: 2px solid var(--cyan, #8be9fd); outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A restrained secondary action that gains a signal border instead of a filled hover state.",
+      "html": "<button class=\"ds-btn-secondary\">VIEW RESUME</button>",
+      "css": ".ds-btn-secondary { min-height: 48px; padding: 12px 20px; border: 1px solid var(--line, rgba(245,242,234,0.12)); border-radius: var(--radius, 8px); background: rgba(255,255,255,0.05); color: var(--foreground, #f5f2ea); font: 600 14px/1.2 var(--font-inter, Inter, ui-sans-serif, system-ui, sans-serif); transition: border-color 200ms ease, background-color 200ms ease; } .ds-btn-secondary:hover { border-color: rgba(139,233,253,0.4); background: rgba(255,255,255,0.065); } .ds-btn-secondary:active { background: rgba(255,255,255,0.035); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--cyan, #8be9fd); outline-offset: 3px; }"
+    },
+    {
+      "name": "Availability Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "A rare Voltage Lime status chip used for availability and featured states.",
+      "html": "<span class=\"ds-chip-availability\"><span class=\"ds-chip-dot\"></span>OPEN TO ENGINEERING WORK</span>",
+      "css": ".ds-chip-availability { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid rgba(200,255,93,0.2); border-radius: var(--radius, 8px); background: rgba(200,255,93,0.1); color: var(--acid, #c8ff5d); font: 500 12px/1 var(--font-inter, Inter, ui-sans-serif, system-ui, sans-serif); } .ds-chip-dot { width: 8px; height: 8px; border-radius: 999px; background: var(--acid, #c8ff5d); box-shadow: 0 0 16px rgba(200,255,93,0.7); }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The core proof surface, combining category, metric, title, summary, and a restrained signal response.",
+      "html": "<article class=\"ds-project-card\"><div class=\"ds-project-signal\">AI SEARCH INFRASTRUCTURE</div><p class=\"ds-project-metric\">250K+ ARXIV PAPERS</p><h3>Research Paper Discovery</h3><p class=\"ds-project-copy\">Semantic research discovery across model, API, cloud, and interface layers.</p><div class=\"ds-project-tags\"><span>FASTAPI</span><span>FAISS</span><span>NEXT.JS</span></div></article>",
+      "css": ".ds-project-card { width: min(100%, 420px); padding: 20px; overflow: hidden; border: 1px solid var(--line, rgba(245,242,234,0.12)); border-radius: var(--radius, 8px); background: var(--glass, rgba(18,18,18,0.68)); color: var(--foreground, #f5f2ea); box-shadow: var(--shadow-soft, 0 24px 90px rgba(0,0,0,0.55)); transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease; } .ds-project-card:hover { border-color: rgba(139,233,253,0.4); box-shadow: 0 0 60px rgba(139,233,253,0.16); transform: translateY(-2px); } .ds-project-card:focus-within { outline: 2px solid var(--cyan, #8be9fd); outline-offset: 3px; } .ds-project-signal, .ds-project-metric { color: var(--cyan, #8be9fd); font: 600 12px/1.2 var(--font-inter, Inter, ui-sans-serif, system-ui, sans-serif); } .ds-project-metric { margin: 24px 0 8px; } .ds-project-card h3 { margin: 0; font: 600 24px/1.2 var(--font-space-grotesk, Space Grotesk, ui-sans-serif, system-ui, sans-serif); } .ds-project-copy { margin: 12px 0 20px; color: rgba(245,242,234,0.58); font: 400 14px/1.6 var(--font-inter, Inter, ui-sans-serif, system-ui, sans-serif); } .ds-project-tags { display: flex; flex-wrap: wrap; gap: 8px; } .ds-project-tags span { padding: 4px 10px; border: 1px solid var(--line, rgba(245,242,234,0.12)); border-radius: var(--radius, 8px); color: rgba(245,242,234,0.54); font: 400 11px/1.2 var(--font-inter, Inter, ui-sans-serif, system-ui, sans-serif); }"
+    },
+    {
+      "name": "Primary Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "A floating glass shell with a compact active-state signal.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-mark\">K</span><div class=\"ds-nav-links\"><a class=\"ds-nav-active\" href=\"#\">WORK</a><a href=\"#\">EXPERIENCE</a><a href=\"#\">CONTACT</a></div></nav>",
+      "css": ".ds-nav { display: flex; min-height: 64px; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 16px; border: 1px solid var(--line, rgba(245,242,234,0.12)); border-radius: var(--radius, 8px); background: rgba(16,16,16,0.82); color: var(--foreground, #f5f2ea); box-shadow: 0 18px 70px rgba(0,0,0,0.38); backdrop-filter: blur(var(--blur-glass, 24px)); } .ds-nav-mark { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--line, rgba(245,242,234,0.12)); border-radius: var(--radius, 8px); background: rgba(255,255,255,0.06); color: var(--cyan, #8be9fd); font: 700 14px/1 var(--font-inter, Inter, ui-sans-serif, system-ui, sans-serif); } .ds-nav-links { display: flex; gap: 4px; } .ds-nav a { padding: 8px 12px; border-radius: 7px; color: rgba(245,242,234,0.62); font: 500 14px/1.2 var(--font-inter, Inter, ui-sans-serif, system-ui, sans-serif); text-decoration: none; transition: color 200ms ease, background-color 200ms ease; } .ds-nav a:hover, .ds-nav a:focus-visible { color: var(--foreground, #f5f2ea); } .ds-nav a:focus-visible { outline: 2px solid var(--cyan, #8be9fd); outline-offset: 2px; } .ds-nav .ds-nav-active { border: 1px solid var(--line, rgba(245,242,234,0.12)); background: rgba(255,255,255,0.09); color: var(--foreground, #f5f2ea); box-shadow: 0 0 28px rgba(139,233,253,0.16); }"
+    },
+    {
+      "name": "Technology Marquee Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "A neutral technical label designed to repeat rhythmically without competing with project proof.",
+      "html": "<span class=\"ds-tech-chip\">SENTENCE TRANSFORMERS</span>",
+      "css": ".ds-tech-chip { display: inline-flex; min-height: 44px; align-items: center; padding: 0 16px; border: 1px solid var(--line, rgba(245,242,234,0.12)); border-radius: var(--radius, 8px); background: rgba(17,17,17,0.72); color: rgba(245,242,234,0.64); font: 500 14px/1.2 var(--font-inter, Inter, ui-sans-serif, system-ui, sans-serif); backdrop-filter: blur(var(--blur-glass, 24px)); transition: border-color 200ms ease, color 200ms ease; } .ds-tech-chip:hover { border-color: rgba(139,233,253,0.28); color: var(--foreground, #f5f2ea); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Signal Workshop",
+    "overview": "The portfolio is a confident, kinetic, technically fluent workshop where finished systems, build evidence, and professional signals share one precise interface. A near-black gridded field acts as the workbench; warm type, compact glass surfaces, and deliberately assigned accents make the work readable without disguising its technical character.\n\nThe system is expressive through scale, asymmetry, responsive feedback, and controlled contrast rather than decorative excess. It should feel authored and alive, but never resemble neon cyberpunk, a generic AI-generated portfolio, or a soft rounded SaaS product. The F1 lights-out loader is the signature interaction and receives the system's most theatrical motion; the rest of the interface stays quieter so that entrance remains distinctive. Motion elsewhere explains state, hierarchy, or spatial response rather than becoming ambient spectacle.",
+    "keyCharacteristics": [
+      "Near-black technical canvas with warm porcelain type.",
+      "Oversized geometric headlines paired with restrained, readable body copy.",
+      "Compact 8px geometry, fine borders, and selective glass layering.",
+      "Multiple signal colors with explicit roles rather than blended decoration.",
+      "A preserved F1 lights-out signature entrance with an automatic, session-aware fast path.",
+      "Restrained kinetic feedback elsewhere that respects reduced-motion preferences."
+    ],
+    "rules": [
+      { "name": "The Signal, Not Spectrum Rule", "body": "Use each accent as a discrete semantic signal; do not blend the palette into decorative gradients.", "section": "colors" },
+      { "name": "The Earned Brightness Rule", "body": "Voltage Lime is rare and purposeful. It marks availability, selection, or a decisive interaction—not general ornament.", "section": "colors" },
+      { "name": "The Compression Contrast Rule", "body": "Large headlines run tightly; explanatory copy breathes. Do not give both layers the same vertical rhythm.", "section": "typography" },
+      { "name": "The Two-Face Rule", "body": "Use Space Grotesk for display and titles, Inter for interface and reading. Do not add a novelty mono or third display face without a functional need.", "section": "typography" },
+      { "name": "The One Field Rule", "body": "Sections live on the same continuous workshop canvas. Use containment to group meaningful units, not to turn every block of copy into another card.", "section": "layout" },
+      { "name": "The Evidence Rhythm Rule", "body": "Alternate expansive statements with compact proof clusters so visitors can scan quickly, then inspect deeply.", "section": "layout" },
+      { "name": "The Rest Is Structural Rule", "body": "At rest, use tonal layering, blur, and hairline borders. Glow and lift signal interaction, focus, or active evidence.", "section": "elevation" },
+      { "name": "The No Gratuitous Glow Rule", "body": "Never halo ordinary text, stack multiple glows, or use glow as a substitute for hierarchy.", "section": "elevation" },
+      { "name": "The Eight-Pixel Chassis Rule", "body": "Default to the 8px engineered corner across rectangular UI. Change the silhouette only when the component's function requires it.", "section": "shapes" },
+      { "name": "The Signature Takes the Stage Rule", "body": "Preserve the F1 loader through distill, quieter, polish, and subsequent refinement. Simplify competing motion elsewhere so the start sequence remains singular.", "section": "components" },
+      { "name": "The Motion Must Explain Rule", "body": "Animation must reveal hierarchy, indicate state, preserve route continuity, or respond directly to input. If it does none of these, remove it.", "section": "components" }
+    ],
+    "dos": [
+      "Do preserve the continuous near-black workshop canvas and use glass surfaces only for meaningful grouping.",
+      "Do pair oversized Space Grotesk statements with restrained Inter explanations and technical metadata.",
+      "Do assign accents semantically and let one signal color lead a component or interaction.",
+      "Do reserve glow, lift, tilt, and scramble effects for direct feedback or high-value emphasis.",
+      "Do maintain factual readability: project metrics, resume claims, and hiring signals must remain easy to scan.",
+      "Do preserve reduced-motion and coarse-pointer fallbacks whenever adding interaction.",
+      "Do preserve the F1 lights-out loader as the single signature interaction, complete it automatically within roughly 1.5–2.5 seconds, and show the full sequence only once per browsing session.",
+      "Do keep loader sound silent unless the visitor explicitly initiates it.",
+      "Do simplify motion elsewhere so the F1 entrance remains special."
+    ],
+    "donts": [
+      "Don't drift into neon cyberpunk excess or cover the interface in luminous effects.",
+      "Don't imitate generic AI-generated portfolio aesthetics through arbitrary gradients, floating blobs, or decorative pseudo-technical noise.",
+      "Don't use soft rounded SaaS styling, pill-shaped UI everywhere, or inconsistent corner radii.",
+      "Don't create card-on-card layouts when spacing and typography can establish the relationship.",
+      "Don't use gradient-heavy decoration or blend all four signal colors into a single visual treatment.",
+      "Don't animate without a functional purpose or stack multiple motion ideas on one interaction.",
+      "Don't remove the F1 loader during distill, quieter, polish, or later refinement.",
+      "Don't require a click before the portfolio becomes usable, replay the full loader during internal navigation, or autoplay sound."
+    ]
+  }
+}

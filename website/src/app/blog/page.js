@@ -42,15 +42,13 @@ export default function BlogIndexPage() {
             data-cursor="button"
           >
             <div>
-              <div className="mb-6 flex flex-wrap gap-2">
-                <span className="rounded-[8px] border border-acid/20 bg-acid/10 px-3 py-1 text-xs uppercase text-acid">
+              <div className="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs uppercase">
+                <span className="text-acid">
                   Featured
                 </span>
                 {featuredPost.tags.slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-[8px] border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-white/50"
-                  >
+                  <span key={tag} className="text-white/50">
+                    <span className="mr-2 text-white/22" aria-hidden="true">/</span>
                     {tag}
                   </span>
                 ))}
@@ -98,13 +96,13 @@ export default function BlogIndexPage() {
                   {post.title}
                 </h2>
                 <p className="mt-4 text-sm leading-6 text-white/58">{post.description}</p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {post.tags.slice(0, 3).map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-[8px] border border-white/10 px-2.5 py-1 text-[0.7rem] text-white/48"
-                    >
+                <div className="mt-6 flex flex-wrap gap-x-2 gap-y-1 text-[0.7rem] text-white/48">
+                  {post.tags.slice(0, 3).map((tag, index) => (
+                    <span key={tag}>
                       {tag}
+                      {index < Math.min(post.tags.length, 3) - 1 && (
+                        <span className="ml-2 text-white/22" aria-hidden="true">/</span>
+                      )}
                     </span>
                   ))}
                 </div>
