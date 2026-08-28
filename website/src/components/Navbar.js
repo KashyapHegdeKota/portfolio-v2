@@ -5,7 +5,6 @@ import { Menu, Rss, Sparkle, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import Magnetic from "./Magnetic";
 
 const navItems = [
   { label: "Home", href: "/#about", id: "about" },
@@ -67,58 +66,53 @@ export default function Navbar() {
         className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between rounded-[8px] border border-white/10 bg-[#101010]/72 px-3 shadow-[0_18px_70px_rgba(0,0,0,0.38)] backdrop-blur-glass md:px-4"
         aria-label="Primary navigation"
       >
-        <Magnetic strength={0.18} rotation={3} className="shrink-0">
-          <Link
-            href="/#about"
-            className="group flex items-center gap-3 rounded-[8px] px-3 py-2"
-            data-cursor="button"
-          >
-            <span className="grid h-9 w-9 place-items-center rounded-[8px] border border-white/10 bg-white/[0.06] text-sm font-bold text-cyan">
-              K
+        <Link
+          href="/#about"
+          className="group flex shrink-0 items-center gap-3 rounded-[8px] px-3 py-2"
+          data-cursor="button"
+        >
+          <span className="grid h-9 w-9 place-items-center rounded-[8px] border border-white/10 bg-white/[0.06] text-sm font-bold text-cyan">
+            K
+          </span>
+          <span className="hidden min-w-0 flex-col leading-none sm:flex">
+            <span className="font-display text-sm font-semibold text-porcelain">
+              Kashyap Hegde Kota
             </span>
-            <span className="hidden min-w-0 flex-col leading-none sm:flex">
-              <span className="font-display text-sm font-semibold text-porcelain">
-                Kashyap Hegde Kota
-              </span>
-              <span className="mt-1 text-[0.68rem] uppercase text-white/45">
-                Creative Engineer
-              </span>
+            <span className="mt-1 text-[0.68rem] uppercase text-white/45">
+              Creative Engineer
             </span>
-          </Link>
-        </Magnetic>
+          </span>
+        </Link>
 
         <div className="hidden items-center gap-1 rounded-[8px] border border-white/10 bg-white/[0.04] p-1 md:flex">
           {navItems.map((item) => (
-            <Magnetic key={item.id} strength={0.16} rotation={2} cursor="link">
-              <Link
-                href={item.href}
-                className="relative rounded-[7px] px-4 py-2 text-sm font-medium text-white/62 transition-colors duration-300 hover:text-porcelain"
-                data-cursor="link"
-              >
-                {activeId === item.id && (
-                  <motion.span
-                    layoutId="nav-active-pill"
-                    className="absolute inset-0 rounded-[7px] border border-white/10 bg-white/[0.09] shadow-[0_0_28px_rgba(139,233,253,0.16)]"
-                    transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                  />
-                )}
-                <span className="relative z-10">{item.label}</span>
-              </Link>
-            </Magnetic>
+            <Link
+              key={item.id}
+              href={item.href}
+              className="relative rounded-[7px] px-4 py-2 text-sm font-medium text-white/62 transition-colors duration-200 hover:text-porcelain"
+              data-cursor="link"
+            >
+              {activeId === item.id && (
+                <motion.span
+                  layoutId="nav-active-pill"
+                  className="absolute inset-0 rounded-[7px] border border-white/10 bg-white/[0.09]"
+                  transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
+                />
+              )}
+              <span className="relative z-10">{item.label}</span>
+            </Link>
           ))}
         </div>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Magnetic strength={0.18} rotation={3}>
-            <Link
-              href="/blog"
-              className="inline-flex h-10 items-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.06] px-3 text-sm font-medium text-porcelain transition-colors hover:border-cyan/40"
-              data-cursor="button"
-            >
-              <Rss size={16} />
-              Blog
-            </Link>
-          </Magnetic>
+          <Link
+            href="/blog"
+            className="inline-flex h-10 items-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.06] px-3 text-sm font-medium text-porcelain transition-colors hover:border-cyan/40"
+            data-cursor="button"
+          >
+            <Rss size={16} />
+            Blog
+          </Link>
         </div>
 
         <button
@@ -137,10 +131,10 @@ export default function Navbar() {
         {menuOpen && (
           <motion.div
             className="mx-auto mt-3 w-full max-w-5xl overflow-hidden rounded-[8px] border border-white/10 bg-[#101010]/92 shadow-[0_22px_90px_rgba(0,0,0,0.5)] backdrop-blur-glass md:hidden"
-            initial={{ opacity: 0, y: -12, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 360, damping: 30 }}
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
           >
             <div className="grid gap-1 p-2">
               {navItems.map((item) => (

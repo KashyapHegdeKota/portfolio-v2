@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useAnimationControls } from "framer-motion";
+import { motion, useAnimationControls, useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
 
 const stack = [
@@ -24,7 +24,7 @@ function startLoop(controls) {
   controls.start({
     x: "-50%",
     transition: {
-      duration: 26,
+      duration: 42,
       ease: "linear",
       repeat: Infinity,
       repeatType: "loop",
@@ -34,18 +34,28 @@ function startLoop(controls) {
 
 export default function TechMarquee() {
   const controls = useAnimationControls();
-  const items = [...stack, ...stack];
+  const shouldReduceMotion = useReducedMotion();
+  const items = shouldReduceMotion ? stack : [...stack, ...stack];
 
   useEffect(() => {
+    if (shouldReduceMotion) {
+      controls.set({ x: "0%" });
+      return;
+    }
+
     startLoop(controls);
-  }, [controls]);
+  }, [controls, shouldReduceMotion]);
 
   return (
     <section
       className="border-y border-white/10 bg-white/[0.025] py-5"
       aria-label="Technology stack"
       onMouseEnter={() => controls.stop()}
-      onMouseLeave={() => startLoop(controls)}
+      onMouseLeave={() => {
+        if (!shouldReduceMotion) {
+          startLoop(controls);
+        }
+      }}
       data-cursor="link"
     >
       <div className="content-grid overflow-hidden">
@@ -58,6 +68,7 @@ export default function TechMarquee() {
             <span
               key={`${tech}-${index}`}
               className="inline-flex h-11 items-center border-r border-white/10 px-4 text-sm font-medium text-white/64 last:border-r-0"
+              aria-hidden={index >= stack.length ? "true" : undefined}
             >
               {tech}
             </span>

@@ -4,9 +4,8 @@ import {
   motion,
   useMotionValue,
   useSpring,
-  useTransform,
 } from "framer-motion";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const spring = {
   stiffness: 320,
@@ -17,24 +16,28 @@ const spring = {
 export default function Magnetic({
   children,
   className = "",
-  strength = 0.28,
-  rotation = 5,
-  scale = 1.035,
+  strength = 0.16,
+  scale = 1.015,
   cursor = "button",
 }) {
   const ref = useRef(null);
+  const [enabled, setEnabled] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const smoothX = useSpring(x, spring);
   const smoothY = useSpring(y, spring);
-  const rotateX = useTransform(smoothY, [-30, 30], [rotation, -rotation]);
-  const rotateY = useTransform(smoothX, [-30, 30], [-rotation, rotation]);
+
+  useEffect(() => {
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setEnabled(finePointer && !reducedMotion);
+  }, []);
 
   const handlePointerMove = useCallback(
     (event) => {
       const element = ref.current;
 
-      if (!element) {
+      if (!element || !enabled) {
         return;
       }
 
@@ -45,7 +48,7 @@ export default function Magnetic({
       x.set((event.clientX - centerX) * strength);
       y.set((event.clientY - centerY) * strength);
     },
-    [strength, x, y],
+    [enabled, strength, x, y],
   );
 
   const handlePointerLeave = useCallback(() => {
@@ -64,13 +67,9 @@ export default function Magnetic({
       style={{
         x: smoothX,
         y: smoothY,
-        rotateX,
-        rotateY,
-        transformPerspective: 900,
-        transformStyle: "preserve-3d",
       }}
-      whileHover={{ scale }}
-      transition={{ type: "spring", stiffness: 380, damping: 28, mass: 0.6 }}
+      whileHover={enabled ? { scale } : undefined}
+      transition={{ type: "spring", stiffness: 420, damping: 32, mass: 0.5 }}
     >
       {children}
     </motion.span>

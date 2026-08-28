@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const spring = {
@@ -11,32 +11,32 @@ const spring = {
 
 const variants = {
   idle: {
-    scale: 1,
-    opacity: 0.74,
+    scale: 0.72,
+    opacity: 0.62,
     borderRadius: "999px",
-    backgroundColor: "rgba(139, 233, 253, 0.16)",
-    borderColor: "rgba(139, 233, 253, 0.42)",
+    backgroundColor: "rgba(139, 233, 253, 0.08)",
+    borderColor: "rgba(139, 233, 253, 0.58)",
   },
   link: {
-    scale: 1.82,
-    opacity: 0.9,
+    scale: 1.08,
+    opacity: 0.82,
     borderRadius: "999px",
-    backgroundColor: "rgba(200, 255, 93, 0.2)",
-    borderColor: "rgba(200, 255, 93, 0.78)",
+    backgroundColor: "rgba(200, 255, 93, 0.1)",
+    borderColor: "rgba(200, 255, 93, 0.72)",
   },
   button: {
-    scale: 2.24,
-    opacity: 0.94,
-    borderRadius: "8px",
-    backgroundColor: "rgba(255, 107, 53, 0.2)",
-    borderColor: "rgba(255, 107, 53, 0.82)",
+    scale: 1.28,
+    opacity: 0.88,
+    borderRadius: "999px",
+    backgroundColor: "rgba(139, 233, 253, 0.12)",
+    borderColor: "rgba(139, 233, 253, 0.8)",
   },
   launch: {
-    scale: 2.55,
-    opacity: 0.98,
-    borderRadius: "8px",
-    backgroundColor: "rgba(34, 197, 94, 0.2)",
-    borderColor: "rgba(187, 247, 208, 0.94)",
+    scale: 1.28,
+    opacity: 0.88,
+    borderRadius: "999px",
+    backgroundColor: "rgba(139, 233, 253, 0.12)",
+    borderColor: "rgba(139, 233, 253, 0.8)",
   },
 };
 
@@ -66,7 +66,6 @@ export default function FluidCursor() {
   const pointerY = useMotionValue(-100);
   const x = useSpring(pointerX, spring);
   const y = useSpring(pointerY, spring);
-  const rotate = useTransform(x, [-200, 1600], [-16, 16]);
 
   useEffect(() => {
     const finePointer = window.matchMedia("(pointer: fine)").matches;
@@ -79,8 +78,8 @@ export default function FluidCursor() {
     document.documentElement.classList.add("has-fluid-cursor");
 
     const handleMove = (event) => {
-      pointerX.set(event.clientX - 13);
-      pointerY.set(event.clientY - 13);
+      pointerX.set(event.clientX - 9);
+      pointerY.set(event.clientY - 9);
       setVisible(true);
       setMode(getCursorMode(event.target));
     };
@@ -103,19 +102,16 @@ export default function FluidCursor() {
   return (
     <motion.div
       aria-hidden="true"
-      className="fixed left-0 top-0 z-[200] hidden h-[26px] w-[26px] border md:block"
+      className="fixed left-0 top-0 z-[200] hidden h-[18px] w-[18px] border md:block"
       animate={mode}
       initial={false}
       style={{
         x,
         y,
-        rotate,
         opacity: visible ? undefined : 0,
         pointerEvents: "none",
-        mixBlendMode: "screen",
-        boxShadow: "0 0 44px rgba(139, 233, 253, 0.18)",
       }}
-      transition={{ type: "spring", stiffness: 480, damping: 26, mass: 0.6 }}
+      transition={{ type: "spring", stiffness: 520, damping: 36, mass: 0.5 }}
       variants={variants}
     />
   );
