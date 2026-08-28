@@ -13,7 +13,6 @@ export const projectsData = [
     tags: ["FastAPI", "FAISS", "Next.js", "Oracle Cloud"],
     liveUrl: "https://research-indexing.kashyaphegde.com/",
     repoUrl: "https://github.com/KashyapHegdeKota/ResearchPaperIndexing",
-    span: "feature",
     accent: "cyan",
   },
   {
@@ -30,7 +29,6 @@ export const projectsData = [
     tags: ["AWS Lambda", "FastAPI", "DynamoDB", "Next.js"],
     liveUrl: "https://f1-emissions-2026.vercel.app/",
     repoUrl: "https://github.com/KashyapHegdeKota/f1-emissions-2026",
-    span: "wide",
     accent: "ember",
   },
   {
@@ -47,7 +45,6 @@ export const projectsData = [
     tags: ["Python", "PyTorch", "Streamlit", "Deep Learning"],
     liveUrl: "https://captionme.kashyaphegde.com/",
     repoUrl: "https://github.com/KashyapHegdeKota/CaptionMe",
-    span: "tall",
     accent: "violet",
   },
   {
@@ -64,7 +61,6 @@ export const projectsData = [
     tags: ["React", "AWS Lambda", "Serverless"],
     liveUrl: "https://familyguy.kashyaphegde.com/",
     repoUrl: "https://github.com/KashyapHegdeKota/family-guy-episode-recommender",
-    span: "standard",
     accent: "acid",
   },
   {
@@ -80,7 +76,6 @@ export const projectsData = [
     imageUrl: "/leetbuddy.png",
     tags: ["Python", "LLaVA", "LoRA", "MLOps"],
     repoUrl: "https://github.com/KashyapHegdeKota/LeetBuddy",
-    span: "wide",
     accent: "cyan",
   },
   {
@@ -96,7 +91,6 @@ export const projectsData = [
     imageUrl: "/crime-predictor.png",
     tags: ["Python", "Machine Learning", "scikit-learn"],
     repoUrl: "https://github.com/KashyapHegdeKota/Crime-Predictor",
-    span: "standard",
     accent: "ember",
   },
   {
@@ -113,7 +107,6 @@ export const projectsData = [
     tags: ["JavaScript", "OpenWeatherMap API", "Responsive Design"],
     liveUrl: "https://weather.kashyaphegde.com/",
     repoUrl: "https://github.com/KashyapHegdeKota/weather-app",
-    span: "standard",
     accent: "violet",
   },
   {
@@ -130,7 +123,6 @@ export const projectsData = [
     tags: ["Next.js", "Firebase", "Generative AI", "Firestore"],
     liveUrl: "https://pantry.kashyaphegde.com/",
     repoUrl: "https://github.com/KashyapHegdeKota/PantryTracker",
-    span: "standard",
     accent: "acid",
   },
 ];

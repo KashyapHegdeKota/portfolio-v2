@@ -57,7 +57,7 @@ export default function TechMarquee() {
           {items.map((tech, index) => (
             <span
               key={`${tech}-${index}`}
-              className="inline-flex h-11 items-center rounded-[8px] border border-white/10 bg-[#111]/72 px-4 text-sm font-medium text-white/64 backdrop-blur-glass"
+              className="inline-flex h-11 items-center border-r border-white/10 px-4 text-sm font-medium text-white/64 last:border-r-0"
             >
               {tech}
             </span>

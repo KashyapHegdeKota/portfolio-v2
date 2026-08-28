@@ -35,7 +35,45 @@ const accentMap = {
   },
 };
 
-export default function ProjectCard({ project, spanClass = "" }) {
+export function ProjectActions({ project, compact = false }) {
+  const liveClass = compact
+    ? "inline-flex min-h-10 items-center gap-2 py-2 text-sm font-semibold text-porcelain transition-colors hover:text-acid"
+    : "inline-flex h-10 items-center gap-2 rounded-[8px] bg-porcelain px-3 text-sm font-semibold text-ink transition-colors hover:bg-acid";
+  const codeClass = compact
+    ? "inline-flex min-h-10 items-center gap-2 py-2 text-sm font-semibold text-white/58 transition-colors hover:text-cyan"
+    : "inline-flex h-10 items-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.04] px-3 text-sm font-semibold text-porcelain transition-colors hover:border-cyan/40";
+
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+      {project.liveUrl && (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={liveClass}
+          data-cursor="button"
+        >
+          Live
+          <ArrowUpRight size={15} />
+        </a>
+      )}
+      {project.repoUrl && (
+        <a
+          href={project.repoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={codeClass}
+          data-cursor="link"
+        >
+          <Github size={15} />
+          Code
+        </a>
+      )}
+    </div>
+  );
+}
+
+export default function ProjectCard({ project }) {
   const accent = accentMap[project.accent] ?? accentMap.cyan;
   const [imageLoaded, setImageLoaded] = useState(false);
   const pointerX = useMotionValue(0.5);
@@ -61,7 +99,7 @@ export default function ProjectCard({ project, spanClass = "" }) {
 
   return (
     <motion.article
-      className={`group relative min-h-[320px] overflow-hidden rounded-[8px] border border-white/10 bg-[#101010]/72 transition duration-500 ${accent.border} ${accent.glow} ${spanClass}`}
+      className={`group relative min-h-[320px] overflow-hidden rounded-[8px] border border-white/10 bg-[#101010]/72 transition duration-500 ${accent.border} ${accent.glow}`}
       onPointerLeave={handlePointerLeave}
       onPointerMove={handlePointerMove}
       style={{
@@ -99,13 +137,10 @@ export default function ProjectCard({ project, spanClass = "" }) {
             aria-hidden="true"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#101010] via-[#101010]/20 to-transparent" />
-          <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-            <span className="rounded-[8px] border border-white/12 bg-black/36 px-3 py-1 text-[0.68rem] uppercase text-white/68 backdrop-blur-glass">
-              {project.eyebrow}
-            </span>
-            <span className="rounded-[8px] border border-white/12 bg-black/36 px-3 py-1 text-[0.68rem] uppercase text-white/68 backdrop-blur-glass">
-              {project.year}
-            </span>
+          <div className="absolute left-4 top-4 rounded-[8px] bg-black/48 px-3 py-1 text-[0.68rem] uppercase text-white/68 backdrop-blur-glass">
+            {project.eyebrow}
+            <span className="mx-2 text-white/30" aria-hidden="true">/</span>
+            {project.year}
           </div>
         </div>
 
@@ -119,49 +154,26 @@ export default function ProjectCard({ project, spanClass = "" }) {
                 {project.title}
               </h3>
             </div>
-            <span className="shrink-0 rounded-[8px] border border-white/10 px-3 py-1 text-xs text-white/54">
+            <span className="shrink-0 pt-1 text-xs uppercase text-white/54">
               {project.status}
             </span>
           </div>
 
           <p className="text-sm leading-6 text-white/58">{project.description}</p>
 
-          <div className="mt-5 flex flex-wrap gap-2">
-            {project.tags.slice(0, 4).map((tag) => (
-              <span
-                key={tag}
-                className="rounded-[8px] border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[0.72rem] text-white/54"
-              >
+          <div className="mt-5 flex flex-wrap gap-x-2 gap-y-1 text-[0.72rem] text-white/54">
+            {project.tags.map((tag, index) => (
+              <span key={tag}>
                 {tag}
+                {index < project.tags.length - 1 && (
+                  <span className="ml-2 text-white/22" aria-hidden="true">/</span>
+                )}
               </span>
             ))}
           </div>
 
-          <div className="mt-auto flex items-center gap-2 pt-6">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-10 items-center gap-2 rounded-[8px] bg-porcelain px-3 text-sm font-semibold text-ink transition-colors hover:bg-acid"
-                data-cursor="button"
-              >
-                Live
-                <ArrowUpRight size={15} />
-              </a>
-            )}
-            {project.repoUrl && (
-              <a
-                href={project.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-10 items-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.04] px-3 text-sm font-semibold text-porcelain transition-colors hover:border-cyan/40"
-                data-cursor="link"
-              >
-                <Github size={15} />
-                Code
-              </a>
-            )}
+          <div className="mt-auto pt-6">
+            <ProjectActions project={project} />
           </div>
         </div>
       </div>

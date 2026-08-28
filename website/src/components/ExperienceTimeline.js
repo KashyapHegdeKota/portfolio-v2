@@ -82,16 +82,16 @@ function TimelineItem({ item, index }) {
             </h3>
             <p className="mt-2 text-sm uppercase text-white/45">{item.org}</p>
           </div>
-          <div className="grid gap-2 sm:grid-cols-3 md:max-w-md">
+          <ul className="flex max-w-md list-disc flex-wrap gap-x-5 gap-y-2 pl-4 marker:text-white/24">
             {item.impact.map((impact) => (
-              <span
+              <li
                 key={impact}
-                className="rounded-[8px] border border-white/10 bg-white/[0.035] px-3 py-2 text-xs text-white/58"
+                className="text-xs text-white/58"
               >
                 {impact}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
         <p className="mt-6 max-w-2xl text-sm leading-7 text-white/58">{item.summary}</p>
       </div>

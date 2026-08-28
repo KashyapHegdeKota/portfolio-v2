@@ -66,13 +66,13 @@ export default async function BlogPostPage({ params }) {
         </Link>
 
         <header className="mb-12 border-b border-white/10 pb-10">
-          <div className="mb-5 flex flex-wrap items-center gap-2">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-[8px] border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-white/50"
-              >
+          <div className="mb-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-white/50">
+            {post.tags.map((tag, index) => (
+              <span key={tag}>
                 {tag}
+                {index < post.tags.length - 1 && (
+                  <span className="ml-2 text-white/22" aria-hidden="true">/</span>
+                )}
               </span>
             ))}
           </div>

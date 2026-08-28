@@ -174,32 +174,30 @@ export default function Hero() {
           transition={{ duration: 0.9, delay: 0.48, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.div
-            className="glass-panel relative overflow-hidden rounded-[8px] p-3"
+            className="glass-panel relative aspect-[4/5] overflow-hidden rounded-[8px]"
             style={{ rotate: imageRotate }}
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[7px] border border-white/10 bg-white/[0.04]">
-              <Image
-                src="/Kashyap picture.jpg"
-                alt="Portrait of Kashyap Hegde Kota"
-                fill
-                priority
-                sizes="(max-width: 768px) 86vw, 430px"
-                className="object-cover grayscale-[0.12] saturate-[1.12]"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/72 to-transparent p-5">
-                <p className="font-display text-2xl font-semibold text-porcelain">
-                  AI product engineer
-                </p>
-                <p className="mt-1 text-sm text-white/58">Next.js / FastAPI / Cloud</p>
-              </div>
+            <Image
+              src="/Kashyap picture.jpg"
+              alt="Portrait of Kashyap Hegde Kota"
+              fill
+              priority
+              sizes="(max-width: 768px) 86vw, 430px"
+              className="object-cover grayscale-[0.12] saturate-[1.12]"
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/72 to-transparent p-5">
+              <p className="font-display text-2xl font-semibold text-porcelain">
+                AI product engineer
+              </p>
+              <p className="mt-1 text-sm text-white/58">Next.js / FastAPI / Cloud</p>
             </div>
           </motion.div>
 
-          <div className="mt-4 grid grid-cols-3 gap-3">
+          <div className="mt-4 grid grid-cols-3 border-y border-white/10">
             {metrics.map((metric, index) => (
               <motion.div
                 key={metric.label}
-                className="glass-panel rounded-[8px] p-4"
+                className="border-l border-white/10 px-3 py-4 first:border-l-0"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.75 + index * 0.08 }}
