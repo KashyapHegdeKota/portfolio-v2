@@ -154,8 +154,40 @@ canvas {
 }
 
 .fluid-copy {
-  hyphens: auto;
-  overflow-wrap: anywhere;
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: normal;
+  text-wrap: balance;
+}
+
+.type-display {
+  font-size: clamp(3rem, 7.5vw, 7rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+.type-route-title {
+  font-size: clamp(3rem, 6.25vw, 6rem);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+}
+
+.type-article-title {
+  font-size: clamp(2.5rem, 6.25vw, 6rem);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+}
+
+.type-section-title {
+  font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+}
+
+.type-feature-title {
+  font-size: clamp(2.25rem, 3.6vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 
 .prose-blog {

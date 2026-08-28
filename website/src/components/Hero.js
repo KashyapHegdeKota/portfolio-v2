@@ -120,7 +120,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.h1
-            className="fluid-copy font-display max-w-5xl text-[clamp(3.2rem,15vw,10.6rem)] font-semibold leading-[0.88] text-porcelain"
+            className="fluid-copy type-display font-display max-w-5xl font-semibold text-porcelain"
             initial={{ opacity: 0, y: 44 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}

@@ -18,7 +18,7 @@ export default function BlogIndexPage() {
         <div className="mb-12 grid gap-6 lg:grid-cols-[0.9fr_0.55fr] lg:items-end">
           <div>
             <p className="mb-4 text-sm font-semibold uppercase text-cyan">Journal</p>
-            <h1 className="fluid-copy font-display text-[clamp(3rem,14vw,9.6rem)] font-semibold leading-[0.88] text-porcelain">
+            <h1 className="fluid-copy type-route-title font-display font-semibold text-porcelain">
               Notes from the build floor.
             </h1>
           </div>
@@ -53,7 +53,7 @@ export default function BlogIndexPage() {
                   </span>
                 ))}
               </div>
-              <h2 className="fluid-copy font-display max-w-3xl text-[clamp(2rem,10vw,5.5rem)] font-semibold leading-[0.92] text-porcelain">
+              <h2 className="fluid-copy type-feature-title font-display max-w-3xl font-semibold text-porcelain">
                 {featuredPost.title}
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-7 text-white/58">
