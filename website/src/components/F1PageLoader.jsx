@@ -3,32 +3,30 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Magnetic from "./Magnetic";
 
 /**
- * @typedef {"loading" | "counting" | "ready" | "launch" | "complete"} LoaderStatus
+ * @typedef {"loading" | "counting" | "launch" | "complete"} LoaderStatus
  *
  * @typedef {Object} F1PageLoaderProps
  * @property {() => void} [onComplete]
  * @property {() => void} [onLightsOut]
- * @property {string} [audioSrc] Place your supplied "5 lights out and away we go" audio in /public and pass the public path here.
- * @property {boolean} [soundEnabled]
- * @property {number} [lightIntervalMs] Interval between each red light, kept between 500ms and 1000ms.
  */
 
 const LIGHT_COUNT = 5;
-const DEFAULT_AUDIO_SRC = "/audio/f1-lights-out-and-away-we-go.mp3";
-const LAUNCH_TRANSITION_SECONDS = 5;
+const INTRO_DELAY_MS = 100;
+const LIGHT_INTERVAL_MS = 190;
+const LIGHTS_HOLD_MS = 240;
+const LIGHTS_OUT_PAYOFF_MS = 180;
+const EXIT_SECONDS = 0.38;
 
 const overlayVariants = {
   loading: { opacity: 1 },
   counting: { opacity: 1 },
-  ready: { opacity: 1 },
   launch: { opacity: 1 },
   exit: {
     opacity: 0,
     transition: {
-      duration: LAUNCH_TRANSITION_SECONDS,
+      duration: EXIT_SECONDS,
       ease: [0.76, 0, 0.24, 1],
     },
   },
@@ -38,7 +36,7 @@ const topPanelVariants = {
   exit: {
     y: "-104%",
     transition: {
-      duration: LAUNCH_TRANSITION_SECONDS,
+      duration: EXIT_SECONDS,
       ease: [0.76, 0, 0.24, 1],
     },
   },
@@ -48,7 +46,7 @@ const bottomPanelVariants = {
   exit: {
     y: "104%",
     transition: {
-      duration: LAUNCH_TRANSITION_SECONDS,
+      duration: EXIT_SECONDS,
       ease: [0.76, 0, 0.24, 1],
       delay: 0.04,
     },
@@ -63,17 +61,11 @@ const gantryVariants = {
     scale: 1,
     transition: { type: "spring", stiffness: 180, damping: 22, mass: 0.8 },
   },
-  ready: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.16, ease: "easeOut" },
-  },
   launch: {
     opacity: 1,
-    y: -8,
-    scale: 1.02,
-    transition: { type: "spring", stiffness: 240, damping: 22, mass: 0.72 },
+    y: -4,
+    scale: 1.01,
+    transition: { duration: 0.18, ease: [0.25, 1, 0.5, 1] },
   },
 };
 
@@ -92,21 +84,13 @@ const lightVariants = {
       "0 0 30px rgba(239,68,68,0.8), 0 0 72px rgba(239,68,68,0.46), inset 0 0 18px rgba(255,255,255,0.28)",
     scale: 1.035,
   },
-  green: {
-    backgroundColor: "rgb(34, 197, 94)",
-    borderColor: "rgba(187, 247, 208, 0.94)",
-    boxShadow:
-      "0 0 30px rgba(34,197,94,0.82), 0 0 86px rgba(34,197,94,0.52), inset 0 0 18px rgba(255,255,255,0.34)",
-    scale: 1.045,
+  out: {
+    backgroundColor: "rgba(24, 12, 12, 0.58)",
+    borderColor: "rgba(248, 113, 113, 0.12)",
+    boxShadow: "inset 0 0 28px rgba(0,0,0,0.88)",
+    scale: 0.97,
   },
 };
-
-/**
- * @param {number} value
- */
-function clampLightInterval(value) {
-  return Math.min(1000, Math.max(500, value));
-}
 
 /**
  * @param {F1PageLoaderProps} props
@@ -114,17 +98,12 @@ function clampLightInterval(value) {
 export default function F1PageLoader({
   onComplete,
   onLightsOut,
-  audioSrc = DEFAULT_AUDIO_SRC,
-  soundEnabled = true,
-  lightIntervalMs = 700,
 }) {
   const [status, setStatus] = useState(/** @type {LoaderStatus} */ ("loading"));
   const [activeLights, setActiveLights] = useState(0);
   const [visible, setVisible] = useState(true);
-  const [readyForLaunch, setReadyForLaunch] = useState(false);
   const timeoutRefs = useRef(/** @type {number[]} */ ([]));
-  const audioRef = useRef(/** @type {HTMLAudioElement | null} */ (null));
-  const audioContextRef = useRef(/** @type {AudioContext | null} */ (null));
+  const finishingRef = useRef(false);
 
   const clearTimers = useCallback(() => {
     timeoutRefs.current.forEach((timer) => window.clearTimeout(timer));
@@ -143,93 +122,25 @@ export default function F1PageLoader({
     [],
   );
 
-  const playCountdownBeep = useCallback(() => {
-    if (!soundEnabled) {
+  const finishSequence = useCallback(async () => {
+    if (finishingRef.current) {
       return;
     }
 
-    try {
-      const AudioContextConstructor =
-        window.AudioContext || window.webkitAudioContext;
-
-      if (!AudioContextConstructor) {
-        return;
-      }
-
-      const context =
-        audioContextRef.current ?? new AudioContextConstructor();
-      audioContextRef.current = context;
-
-      if (context.state === "suspended") {
-        void context.resume();
-      }
-
-      const oscillator = context.createOscillator();
-      const gain = context.createGain();
-      const start = context.currentTime;
-
-      oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(880, start);
-      gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.exponentialRampToValueAtTime(0.18, start + 0.015);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.17);
-
-      oscillator.connect(gain);
-      gain.connect(context.destination);
-      oscillator.start(start);
-      oscillator.stop(start + 0.18);
-    } catch {
-      // Autoplay policies can block audio contexts. The visual sequence should continue.
-    }
-  }, [soundEnabled]);
-
-  const playLightsOutAudio = useCallback(() => {
-    if (!soundEnabled || !audioRef.current) {
-      return;
-    }
-
-    audioRef.current.currentTime = 0;
-    void audioRef.current.play().catch(() => {
-      // Browser autoplay policy can block this until the user has interacted.
-    });
-  }, [soundEnabled]);
-
-  const handleLaunch = useCallback(async () => {
-    if (!readyForLaunch || status !== "ready") {
-      return;
-    }
-
-    setReadyForLaunch(false);
+    finishingRef.current = true;
+    clearTimers();
     setStatus("launch");
-    setActiveLights(LIGHT_COUNT);
-    playLightsOutAudio();
+    setActiveLights(0);
     onLightsOut?.();
 
-    await wait(120);
+    await wait(LIGHTS_OUT_PAYOFF_MS);
     setVisible(false);
-  }, [onLightsOut, playLightsOutAudio, readyForLaunch, status, wait]);
-
-  useEffect(() => {
-    if (soundEnabled && audioSrc) {
-      audioRef.current = new Audio(audioSrc);
-      audioRef.current.preload = "auto";
-      audioRef.current.volume = 0.92;
-    }
-
-    return () => {
-      audioRef.current?.pause();
-      audioRef.current = null;
-      void audioContextRef.current?.close();
-      audioContextRef.current = null;
-    };
-  }, [audioSrc, soundEnabled]);
+  }, [clearTimers, onLightsOut, wait]);
 
   useEffect(() => {
     let cancelled = false;
-    const interval = clampLightInterval(lightIntervalMs);
-
     async function runSequence() {
-      await wait(260);
+      await wait(INTRO_DELAY_MS);
 
       if (cancelled) {
         return;
@@ -238,25 +149,22 @@ export default function F1PageLoader({
       setStatus("counting");
 
       for (let light = 1; light <= LIGHT_COUNT; light += 1) {
-        await wait(interval);
+        await wait(LIGHT_INTERVAL_MS);
 
         if (cancelled) {
           return;
         }
 
         setActiveLights(light);
-        playCountdownBeep();
       }
 
-      await wait(340);
+      await wait(LIGHTS_HOLD_MS);
 
       if (cancelled) {
         return;
       }
 
-      setStatus("ready");
-      setActiveLights(LIGHT_COUNT);
-      setReadyForLaunch(true);
+      await finishSequence();
     }
 
     void runSequence();
@@ -267,8 +175,7 @@ export default function F1PageLoader({
     };
   }, [
     clearTimers,
-    lightIntervalMs,
-    playCountdownBeep,
+    finishSequence,
     wait,
   ]);
 
@@ -283,11 +190,21 @@ export default function F1PageLoader({
         <motion.div
           className="fixed inset-0 z-[120] overflow-hidden bg-[#0a0a0a]"
           aria-live="polite"
+          aria-label="F1 lights-out introduction"
+          aria-modal="true"
+          role="dialog"
           initial="loading"
           animate={status}
           exit="exit"
           variants={overlayVariants}
         >
+          <button
+            type="button"
+            className="absolute right-4 top-4 z-30 inline-flex h-10 items-center rounded-[8px] border border-white/16 bg-black/48 px-4 text-xs font-semibold uppercase tracking-[0.18em] text-white/78 transition-colors hover:border-cyan/45 hover:text-porcelain focus:outline-none focus:ring-2 focus:ring-cyan focus:ring-offset-2 focus:ring-offset-[#0a0a0a]"
+            onClick={finishSequence}
+          >
+            Skip intro
+          </button>
           <motion.div
             className="absolute inset-x-0 top-0 h-1/2 bg-[#0a0a0a]"
             variants={topPanelVariants}
@@ -323,19 +240,18 @@ export default function F1PageLoader({
             >
               <div className="flex items-center gap-2 rounded-[8px] border border-white/10 bg-black/60 p-2 sm:gap-4 sm:p-4">
                 {Array.from({ length: LIGHT_COUNT }).map((_, index) => {
-                  const isGreen = status === "launch";
                   const isLit = activeLights > index;
 
                   return (
                     <motion.div
                       key={index}
                       className="grid h-[clamp(3rem,11vw,6.2rem)] w-[clamp(3rem,11vw,6.2rem)] place-items-center rounded-full border bg-red-950/30 shadow-inner"
-                      animate={isGreen ? "green" : isLit ? "lit" : "unlit"}
+                      animate={status === "launch" ? "out" : isLit ? "lit" : "unlit"}
                       initial="unlit"
                       variants={lightVariants}
                       transition={
                         status === "launch"
-                          ? { duration: 0.16, ease: "easeOut" }
+                          ? { duration: 0.12, ease: "easeOut" }
                           : {
                               type: "spring",
                               stiffness: 380,
@@ -344,7 +260,7 @@ export default function F1PageLoader({
                             }
                       }
                       aria-label={`Race start light ${index + 1} ${
-                        isGreen ? "green" : isLit ? "red" : "off"
+                        isLit && status !== "launch" ? "red" : "off"
                       }`}
                     >
                       <span className="h-[70%] w-[70%] rounded-full border border-white/10 bg-[radial-gradient(circle_at_35%_28%,rgba(255,255,255,0.38),transparent_18%),radial-gradient(circle,rgba(255,255,255,0.08),transparent_62%)]" />
@@ -356,35 +272,13 @@ export default function F1PageLoader({
 
             <motion.p
               className="mt-8 min-h-6 text-center font-display text-sm font-semibold uppercase tracking-[0.34em] text-red-200/70"
-              animate={{ opacity: status === "ready" || status === "launch" ? 1 : 0.58 }}
+              animate={{ opacity: status === "launch" ? 1 : 0.58 }}
               transition={{ duration: 0.18 }}
             >
               {status === "launch"
                 ? "Away we go"
-                : status === "ready"
-                  ? "Race control ready"
-                  : "Awaiting race control"}
+                : "Awaiting race control"}
             </motion.p>
-
-            <AnimatePresence>
-              {readyForLaunch && (
-                <Magnetic strength={0.22} rotation={2.5} scale={1.045} cursor="launch">
-                  <motion.button
-                    type="button"
-                    className="group mt-7 inline-flex h-14 items-center justify-center gap-3 rounded-[8px] border border-green-200/55 bg-green-400 px-7 font-display text-sm font-bold uppercase tracking-[0.24em] text-[#031108] shadow-[0_0_42px_rgba(34,197,94,0.55),inset_0_1px_0_rgba(255,255,255,0.55)] transition-colors hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-100 focus:ring-offset-2 focus:ring-offset-[#0a0a0a]"
-                    initial={{ opacity: 0, y: 18, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                    onClick={handleLaunch}
-                    data-cursor="launch"
-                  >
-                    <span className="h-2 w-2 rounded-full bg-[#031108] shadow-[0_0_12px_rgba(3,17,8,0.55)] transition-transform group-hover:scale-125" />
-                    Let&apos;s go
-                  </motion.button>
-                </Magnetic>
-              )}
-            </AnimatePresence>
           </div>
         </motion.div>
       )}

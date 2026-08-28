@@ -37,7 +37,7 @@ const experience = [
   },
 ];
 
-function TimelineItem({ item, index }) {
+function TimelineItem({ item }) {
   const ref = useRef(null);
   const inView = useInView(ref, { amount: 0.42, once: false });
   const Icon = item.icon;
@@ -46,10 +46,10 @@ function TimelineItem({ item, index }) {
     <motion.article
       ref={ref}
       className="relative grid gap-5 md:grid-cols-[12rem_1fr]"
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ amount: 0.36, once: true }}
-      transition={{ duration: 0.65, delay: index * 0.08 }}
+      transition={{ duration: 0.42, ease: [0.25, 1, 0.5, 1] }}
     >
       <div className="hidden pt-2 text-right md:block">
         <p className="font-display text-2xl font-semibold text-porcelain">{item.date}</p>
@@ -57,12 +57,12 @@ function TimelineItem({ item, index }) {
 
       <div
         className={`glass-panel relative rounded-[8px] p-5 transition duration-500 ${
-          inView ? "border-white/20 shadow-glow" : "border-white/10"
+          inView ? "border-cyan/24" : "border-white/10"
         }`}
       >
         <div
-          className={`absolute -left-[2.1rem] top-6 hidden h-4 w-4 rounded-full border border-white/20 bg-[#0a0a0a] md:block ${
-            inView ? "shadow-[0_0_24px_rgba(139,233,253,0.55)]" : ""
+          className={`absolute -left-[2.1rem] top-6 hidden h-4 w-4 rounded-full border bg-[#0a0a0a] md:block ${
+            inView ? "border-cyan/55" : "border-white/20"
           }`}
           aria-hidden="true"
         />
@@ -120,12 +120,12 @@ export default function ExperienceTimeline() {
         <div className="relative grid gap-5 md:gap-8">
           <div className="absolute left-[12.95rem] top-0 hidden h-full w-px bg-white/10 md:block" />
           <motion.div
-            className="absolute left-[12.95rem] top-0 hidden h-full w-px origin-top bg-gradient-to-b from-cyan via-acid to-ember md:block"
+            className="absolute left-[12.95rem] top-0 hidden h-full w-px origin-top bg-cyan/45 md:block"
             style={{ scaleY }}
             aria-hidden="true"
           />
-          {experience.map((item, index) => (
-            <TimelineItem key={`${item.title}-${item.date}`} item={item} index={index} />
+          {experience.map((item) => (
+            <TimelineItem key={`${item.title}-${item.date}`} item={item} />
           ))}
         </div>
       </div>
