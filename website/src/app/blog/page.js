@@ -23,8 +23,8 @@ export default function BlogIndexPage() {
             </h1>
           </div>
           <p className="max-w-lg text-base leading-7 text-white/58 lg:justify-self-end">
-            Field notes on AI systems, product details, cloud infrastructure,
-            and the engineering choices behind the work.
+            Notes on AI systems, interface details, cloud infrastructure,
+            and the engineering choices behind my projects.
           </p>
         </div>
 

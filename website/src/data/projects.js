@@ -8,7 +8,7 @@ export const projectsData = [
     status: "Live",
     metric: "250K+ arXiv papers",
     description:
-      "Semantic research discovery for CS.AI, CS.LG, and CS.CL papers using Sentence-Transformers, FAISS, FastAPI, and a polished Next.js frontend.",
+      "Search CS.AI, CS.LG, and CS.CL papers by meaning. Built with Sentence-Transformers, FAISS, FastAPI, and Next.js, with 250K+ arXiv papers indexed.",
     imageUrl: "/research.jpg",
     tags: ["FastAPI", "FAISS", "Next.js", "Oracle Cloud"],
     liveUrl: "https://research-indexing.kashyaphegde.com/",
@@ -24,7 +24,7 @@ export const projectsData = [
     status: "Live",
     metric: "Zero idle server cost",
     description:
-      "Cloud-native freight logistics simulation with FastAPI on AWS Lambda, DynamoDB geospatial lookups, and real-time environmental impact visualizations.",
+      "Simulate freight emissions for the 2026 F1 season. FastAPI runs on AWS Lambda, with DynamoDB geospatial lookups and real-time emissions visualizations.",
     imageUrl: "/f1.jpg",
     tags: ["AWS Lambda", "FastAPI", "DynamoDB", "Next.js"],
     liveUrl: "https://f1-emissions-2026.vercel.app/",
@@ -51,12 +51,12 @@ export const projectsData = [
     id: 4,
     slug: "family-guy-recommender",
     title: "Family Guy Episode Recommender",
-    eyebrow: "Playful Product",
+    eyebrow: "Episode Recommendations",
     year: "2025",
     status: "Live",
-    metric: "8 mood paths",
+    metric: "8 moods",
     description:
-      "A mood-aware recommendation app built with React and an AWS serverless backend, tuned for fast choices and polished microinteractions.",
+      "Pick a Family Guy episode based on one of eight moods. Built with React and an AWS serverless backend, with interactive feedback as you choose.",
     imageUrl: "/family-guy-recommender.png",
     tags: ["React", "AWS Lambda", "Serverless"],
     liveUrl: "https://familyguy.kashyaphegde.com/",
@@ -72,7 +72,7 @@ export const projectsData = [
     status: "Research",
     metric: "LoRA fine-tuned",
     description:
-      "A Socratic algorithm co-pilot powered by a custom Code-Vision model, multimodal scraped datasets, and an MLOps training pipeline.",
+      "An algorithm tutor that guides users with questions, using a custom Code-Vision model, scraped multimodal datasets, and an MLOps training pipeline.",
     imageUrl: "/leetbuddy.png",
     tags: ["Python", "LLaVA", "LoRA", "MLOps"],
     repoUrl: "https://github.com/KashyapHegdeKota/LeetBuddy",
@@ -102,7 +102,7 @@ export const projectsData = [
     status: "Live",
     metric: "Real-time forecast",
     description:
-      "A responsive weather app with city autocomplete, OpenWeatherMap integration, and a clean interface for fast daily decisions.",
+      "Look up weather forecasts with city autocomplete and OpenWeatherMap integration in a responsive web app.",
     imageUrl: "/ezgif-5-1c90407034.png",
     tags: ["JavaScript", "OpenWeatherMap API", "Responsive Design"],
     liveUrl: "https://weather.kashyaphegde.com/",

@@ -1,6 +1,6 @@
 ---
 title: "Building Semantic Search for Research Papers"
-description: "A short architecture note on turning dense embeddings, FAISS indexes, and a clean interface into a research discovery loop."
+description: "How I built research paper search with dense embeddings, FAISS indexes, FastAPI, and Next.js."
 date: "2026-06-18"
 tags:
   - AI Search
@@ -10,32 +10,31 @@ featured: true
 draft: false
 ---
 
-Semantic search gets interesting when the product stops feeling like a database
-and starts feeling like a collaborator. The research paper discovery platform
-was built around that idea: query by meaning, surface the strongest matches, and
-make the path from question to paper feel immediate.
+I built the research paper discovery platform to search papers by meaning.
+The goal was straightforward: enter a question, find relevant matches, and
+open a paper without extra steps.
 
-## System Shape
+## Search Pipeline
 
-The core loop is intentionally small:
+The search pipeline has four steps:
 
 - Normalize metadata from arXiv exports.
 - Generate embeddings with Sentence Transformers.
 - Store vectors in FAISS for low-latency nearest-neighbor retrieval.
 - Serve results through FastAPI and render them in a focused Next.js interface.
 
-That shape kept the product understandable while leaving room for better ranking,
+This structure kept the system understandable while leaving room for better ranking,
 filters, and citation-aware exploration later.
 
 ## Interface Notes
 
-The frontend needed to communicate confidence without becoming noisy. The result
-cards prioritize title, abstract signal, and immediate external actions. Search
-feels fast because the interface avoids visual churn between request and result.
+I wanted results to be easy to scan. The cards prioritize paper titles,
+abstracts, and links to the papers. The interface avoids unnecessary visual
+changes while a search request is in progress.
 
 ```txt
 query -> embedding -> FAISS top-k -> metadata hydrate -> ranked cards
 ```
 
-The lesson: search products live or die by the gap between a user's language and
-the system's representation of intent.
+My takeaway: retrieving nearby vectors is only part of the job. The harder
+question is whether the returned papers answer what the user meant to ask.

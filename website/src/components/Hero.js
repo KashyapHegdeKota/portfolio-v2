@@ -9,8 +9,8 @@ import Magnetic from "./Magnetic";
 
 const metrics = [
   { value: "250K+", label: "research papers indexed" },
-  { value: "A100", label: "GPU data pipelines" },
-  { value: "15ms", label: "retrieval-minded builds" },
+  { value: "A100", label: "model training" },
+  { value: "FAISS", label: "vector retrieval" },
 ];
 
 const links = [
@@ -89,7 +89,7 @@ export default function Hero() {
           >
             <span className="inline-flex items-center gap-2 rounded-[8px] border border-acid/20 bg-acid/10 px-3 py-2 text-xs font-medium uppercase text-acid">
               <span className="h-2 w-2 rounded-full bg-acid shadow-[0_0_16px_rgba(200,255,93,0.7)]" />
-              Open to bold engineering work
+              Open to internships and full-time roles
             </span>
             <span className="inline-flex items-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-white/58">
               <MapPin size={14} />
@@ -100,15 +100,15 @@ export default function Hero() {
           <h1
             className="fluid-copy type-display font-display max-w-5xl font-semibold text-porcelain"
           >
-            Building systems with taste, speed, and signal.
+            From models and retrieval to software people can use.
           </h1>
 
           <p
             className="mt-8 max-w-2xl text-base leading-8 text-white/62 md:text-lg"
           >
-            I am Kashyap Hegde Kota, a computer science student and full-stack
-            builder turning AI, cloud infrastructure, and product craft into fast
-            interfaces that feel alive.
+            I&apos;m Kashyap Hegde Kota, a computer science student and AI product
+            engineer. I build search tools, train models, and develop web apps
+            and cloud services.
           </p>
 
           <div
@@ -120,7 +120,7 @@ export default function Hero() {
                 className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-[8px] bg-porcelain px-5 text-sm font-semibold text-ink transition-colors hover:bg-acid sm:w-auto"
                 data-cursor="button"
               >
-                Explore Work
+                View Projects
                 <ArrowUpRight size={16} />
               </a>
             </Magnetic>

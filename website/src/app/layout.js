@@ -19,7 +19,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata = {
-  title: "Kashyap Hegde Kota | Creative Developer Portfolio",
+  title: "Kashyap Hegde Kota | AI Product Engineer",
   description:
     "Interactive portfolio and engineering journal for Kashyap Hegde Kota.",
 };

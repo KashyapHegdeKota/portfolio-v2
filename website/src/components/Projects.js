@@ -11,14 +11,14 @@ export default function Projects() {
       <div className="content-grid">
         <AnimatedSection className="mb-12 max-w-3xl">
           <p className="mb-4 text-sm font-semibold uppercase text-cyan">
-            Selected systems
+            Selected projects
           </p>
           <h2 className="fluid-copy type-section-title font-display font-semibold text-porcelain">
-            Work that moves from model to interface.
+            Search, simulation, and image captioning.
           </h2>
           <p className="mt-6 max-w-2xl text-base leading-7 text-white/58">
-            A mix of AI infrastructure, serverless products, and expressive web
-            apps built with an eye for speed, clarity, and small details.
+            Research paper search, F1 freight emissions, and image captioning,
+            with source code and live apps to explore.
           </p>
         </AnimatedSection>
 

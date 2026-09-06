@@ -12,27 +12,27 @@ const experience = [
     icon: GraduationCap,
     accent: "text-acid",
     summary:
-      "Focused on distributed systems, applied machine learning, web infrastructure, and product engineering craft.",
-    impact: ["Dean's-list velocity", "CS foundations", "Research-first build habits"],
+      "Focused on distributed systems, applied machine learning, web infrastructure, and product engineering.",
+    impact: ["AI and ML coursework", "CS foundations", "Research projects"],
   },
   {
     title: "Software Development Intern",
-    org: "Industry Engineering Team",
-    date: "2025",
+    org: "WalnuTech PBC Inc.",
+    date: "October 2025 - Present",
     icon: BriefcaseBusiness,
     accent: "text-cyan",
     summary:
-      "Contributed to production workflows with a bias for clear interfaces, reliable APIs, and fast iteration loops.",
-    impact: ["Feature delivery", "API integration", "Code review discipline"],
+      "Built a human-in-the-loop scholarship data pipeline with Python, Flask, and LangGraph. Added LLM verification and asynchronous ingestion, reducing processing time from 10 seconds to 200ms per scholarship.",
+    impact: ["LLM verification", "Async ingestion", "API failure tests"],
   },
   {
-    title: "AI Systems Builder",
+    title: "AI Project Developer",
     org: "Independent Projects",
     date: "2024 - Present",
     icon: Cpu,
     accent: "text-ember",
     summary:
-      "Built retrieval, captioning, recommender, and code-assistant systems across cloud, model, and frontend boundaries.",
+      "Built research paper search, image captioning, episode recommendations, and an algorithm tutor, including model training, cloud deployment, and web interfaces.",
     impact: ["FAISS retrieval", "PyTorch training", "Serverless deployments"],
   },
 ];
@@ -111,9 +111,9 @@ export default function ExperienceTimeline() {
     <section id="experience" className="section-pad relative" ref={ref}>
       <div className="content-grid">
         <div className="mb-12 max-w-3xl">
-          <p className="mb-4 text-sm font-semibold uppercase text-ember">Signal path</p>
+          <p className="mb-4 text-sm font-semibold uppercase text-ember">Background</p>
           <h2 className="fluid-copy type-section-title font-display font-semibold text-porcelain">
-            Experience shaped by building in public.
+            Experience
           </h2>
         </div>
 

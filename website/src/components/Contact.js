@@ -5,7 +5,7 @@ import { Mail, Send } from "lucide-react";
 import { Github, Linkedin } from "./BrandIcons";
 import Magnetic from "./Magnetic";
 
-const defaultPhrase = "Let's build the next sharp thing.";
+const defaultPhrase = "Tell me what you're building.";
 
 const contacts = [
   {
@@ -45,9 +45,9 @@ export default function Contact() {
               {defaultPhrase}
             </h2>
             <p className="mt-7 max-w-2xl text-base leading-8 text-white/58">
-              I am interested in internships, AI product work, cloud-heavy
-              systems, and small teams where design taste matters as much as
-              throughput.
+              I&apos;m looking for internships and full-time roles in software and AI
+              engineering. I&apos;m interested in AI products, cloud systems, and
+              small teams that care about usability and performance.
             </p>
             <div className="mt-8">
               <Magnetic>
@@ -56,7 +56,7 @@ export default function Contact() {
                   className="inline-flex h-12 items-center gap-2 rounded-[8px] bg-porcelain px-5 text-sm font-semibold text-ink transition-colors hover:bg-acid"
                   data-cursor="button"
                 >
-                  Start a conversation
+                  Email me
                   <Send size={16} />
                 </a>
               </Magnetic>

@@ -1,6 +1,6 @@
 ---
 title: "Serverless Product Polish"
-description: "Notes on making AWS Lambda, API Gateway, and a modern frontend feel like a cohesive product instead of a collection of services."
+description: "Notes on AWS Lambda, API Gateway, and the loading states and API decisions behind my serverless apps."
 date: "2026-05-22"
 tags:
   - Serverless
@@ -10,26 +10,26 @@ featured: false
 draft: false
 ---
 
-Serverless architecture is most useful when the user never notices it. The F1
-carbon emissions calculator and the episode recommender both benefited from the
-same discipline: keep cold paths lean, make data access predictable, and spend
-the saved complexity budget on the interface.
+The F1 carbon emissions calculator and episode recommender raised similar
+questions: how much work happens on a cold start, how data is fetched, and what
+the user sees while waiting. I focused on keeping cold-start paths small,
+data access predictable, and the interface clear.
 
 ## Constraints That Helped
 
-Good constraints turned into better product choices:
+These were the constraints I worked with:
 
 - Avoid persistent servers for workloads with uneven traffic.
 - Keep API payloads shaped around the exact screen that consumes them.
 - Make deployment repeatable through GitHub Actions.
 - Treat latency as part of the visual design.
 
-## Product Texture
+## Loading and Interaction States
 
-The UI work mattered as much as the backend. Empty states, hover states, loading
-transitions, and copy all helped the products feel intentional instead of
-assembled.
+I worked on empty states, hover feedback, loading transitions, and copy
+alongside the backend. Those details help explain what the app is doing
+and what the user can do next.
 
-> The architecture is doing its job when the interface feels calm.
+> A loading state should tell me what's happening while the backend responds.
 
-That is the thread I want to keep following across cloud-heavy products.
+That's a rule I want to keep using in future cloud projects.

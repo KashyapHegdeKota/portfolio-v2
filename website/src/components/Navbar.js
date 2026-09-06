@@ -79,7 +79,7 @@ export default function Navbar() {
               Kashyap Hegde Kota
             </span>
             <span className="mt-1 text-[0.68rem] uppercase text-white/45">
-              Creative Engineer
+              AI Product Engineer
             </span>
           </span>
         </Link>
