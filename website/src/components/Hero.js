@@ -48,9 +48,11 @@ const heroRevealVariants = {
 
 export default function Hero() {
   const [introReady, setIntroReady] = useState(false);
+  const [motionReady, setMotionReady] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setMotionReady(true));
     const revealHero = () => setIntroReady(true);
 
     if (!document.documentElement.classList.contains("f1-loader-active")) {
@@ -60,14 +62,17 @@ export default function Hero() {
     window.addEventListener("f1-loader-lights-out", revealHero);
 
     return () => {
+      window.cancelAnimationFrame(frame);
       window.removeEventListener("f1-loader-lights-out", revealHero);
     };
   }, []);
 
+  const canAnimate = motionReady && shouldReduceMotion === false;
+
   return (
     <section
       id="about"
-      className="section-pad relative flex min-h-[92svh] items-center overflow-hidden pt-32"
+      className="section-pad hero-pad relative flex min-h-[92svh] items-center overflow-hidden pt-32 max-[640px]:min-h-0 max-[640px]:pt-24"
     >
       <div
         className="pointer-events-none absolute left-[8%] top-28 h-44 w-44 border border-cyan/20"
@@ -80,13 +85,13 @@ export default function Hero() {
 
       <motion.div
         className="content-grid relative z-10 grid items-end gap-12 lg:grid-cols-[1.08fr_0.92fr]"
-        initial="hidden"
-        animate={introReady ? "visible" : "hidden"}
-        variants={shouldReduceMotion === false ? heroRevealVariants : { hidden: { opacity: 1, y: 0 }, visible: { opacity: 1, y: 0 } }}
+        initial={canAnimate ? "hidden" : false}
+        animate={canAnimate ? (introReady ? "visible" : "hidden") : undefined}
+        variants={heroRevealVariants}
       >
         <div>
           <div
-            className="mb-7 flex flex-wrap items-center gap-3"
+            className="mb-7 flex flex-wrap items-center gap-3 max-[640px]:mb-5"
           >
             <span className="inline-flex items-center gap-2 rounded-[8px] border border-acid/20 bg-acid/10 px-3 py-2 text-xs font-medium uppercase text-acid">
               <span className="h-2 w-2 rounded-full bg-acid shadow-[0_0_16px_rgba(200,255,93,0.7)]" />
@@ -105,7 +110,7 @@ export default function Hero() {
           </h1>
 
           <p
-            className="mt-8 max-w-2xl text-base leading-8 text-white/62 md:text-lg"
+            className="mt-8 max-w-2xl text-base leading-8 text-white/62 md:text-lg max-[640px]:mt-6"
           >
             I&apos;m Kashyap Hegde Kota, a computer science student and AI product
             engineer. I build search tools, train models, and develop web apps
@@ -113,7 +118,7 @@ export default function Hero() {
           </p>
 
           <div
-            className="mt-10 flex flex-col gap-3 sm:flex-row"
+            className="mt-10 flex flex-col gap-3 sm:flex-row max-[640px]:mt-7"
           >
             <Magnetic className="w-full sm:w-auto">
               <a
@@ -137,7 +142,7 @@ export default function Hero() {
         </div>
 
         <aside
-          className="relative mx-auto w-full max-w-[470px]"
+          className="relative mx-auto w-full max-w-[470px] max-[640px]:max-w-[300px]"
         >
           <div
             className="glass-panel relative aspect-[4/5] overflow-hidden rounded-[8px]"
@@ -158,11 +163,11 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="mt-4 grid grid-cols-3 border-y border-white/10">
+          <div className="mt-4 grid grid-cols-3 border-y border-white/10 max-[640px]:mt-3">
             {metrics.map((metric) => (
               <div
                 key={metric.label}
-                className="border-l border-white/10 px-3 py-4 first:border-l-0"
+                className="border-l border-white/10 px-3 py-4 first:border-l-0 max-[640px]:px-2.5 max-[640px]:py-3"
               >
                 <p className="font-display text-xl font-semibold text-porcelain">
                   {metric.value}

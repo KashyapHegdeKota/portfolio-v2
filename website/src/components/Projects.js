@@ -9,20 +9,20 @@ export default function Projects() {
   return (
     <section id="projects" className="section-pad relative">
       <div className="content-grid">
-        <AnimatedSection className="mb-12 max-w-3xl">
+        <AnimatedSection className="mb-12 max-w-3xl max-[640px]:mb-8">
           <p className="mb-4 text-sm font-semibold uppercase text-cyan">
             Selected projects
           </p>
           <h2 className="fluid-copy type-section-title font-display font-semibold text-porcelain">
             Search, simulation, and image captioning.
           </h2>
-          <p className="mt-6 max-w-2xl text-base leading-7 text-white/58">
+          <p className="mt-6 max-w-2xl text-base leading-7 text-white/58 max-[640px]:mt-4">
             Research paper search, F1 freight emissions, and image captioning,
             with source code and live apps to explore.
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 max-[640px]:gap-3">
           {featuredProjects.map((project, index) => (
             <AnimatedSection
               key={project.slug}
@@ -34,13 +34,13 @@ export default function Projects() {
           ))}
         </div>
 
-        <AnimatedSection className="mt-16" delay={0.12}>
+        <AnimatedSection className="mt-16 max-[640px]:mt-10" delay={0.12}>
           <h3 className="font-display text-3xl font-semibold text-porcelain">More Work</h3>
-          <div className="mt-6 divide-y divide-white/10 border-y border-white/10">
+          <div className="mt-6 divide-y divide-white/10 border-y border-white/10 max-[640px]:mt-4">
             {moreProjects.map((project) => (
               <article
                 key={project.slug}
-                className="grid gap-5 py-6 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)_auto] md:items-start md:gap-8"
+                className="grid gap-5 py-6 max-[640px]:gap-3 max-[640px]:py-4 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)_auto] md:items-start md:gap-8"
               >
                 <div>
                   <p className="text-xs uppercase text-white/62">

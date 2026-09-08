@@ -2,7 +2,7 @@
 
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { BriefcaseBusiness, Cpu, GraduationCap } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const experience = [
   {
@@ -41,14 +41,20 @@ function TimelineItem({ item }) {
   const ref = useRef(null);
   const inView = useInView(ref, { amount: 0.42, once: false });
   const shouldReduceMotion = useReducedMotion();
+  const [motionReady, setMotionReady] = useState(false);
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setMotionReady(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+  const canAnimate = motionReady && shouldReduceMotion === false;
   const Icon = item.icon;
 
   return (
     <motion.article
       ref={ref}
-      className="relative grid gap-5 md:grid-cols-[12rem_1fr]"
-      initial={shouldReduceMotion === false ? { opacity: 0, y: 14 } : false}
-      whileInView={shouldReduceMotion === false ? { opacity: 1, y: 0 } : undefined}
+      className="relative grid gap-5 max-[640px]:gap-3 md:grid-cols-[12rem_1fr]"
+      initial={canAnimate ? { opacity: 0, y: 14 } : false}
+      whileInView={canAnimate ? { opacity: 1, y: 0 } : undefined}
       viewport={{ amount: 0.36, once: true }}
       transition={{ duration: 0.42, ease: [0.25, 1, 0.5, 1] }}
     >
@@ -57,7 +63,7 @@ function TimelineItem({ item }) {
       </div>
 
       <div
-        className={`glass-panel relative rounded-[8px] p-5 transition duration-500 ${
+        className={`glass-panel relative rounded-[8px] p-5 transition duration-500 max-[640px]:p-4 ${
           inView ? "border-cyan/24" : "border-white/10"
         }`}
       >
@@ -70,7 +76,7 @@ function TimelineItem({ item }) {
 
         <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
           <div>
-            <div className="mb-4 flex items-center gap-3">
+            <div className="mb-4 flex items-center gap-3 max-[640px]:mb-3">
               <span className={`grid h-10 w-10 place-items-center rounded-[8px] border border-white/10 bg-white/[0.05] ${item.accent}`}>
                 <Icon size={18} />
               </span>
@@ -94,7 +100,7 @@ function TimelineItem({ item }) {
             ))}
           </ul>
         </div>
-        <p className="mt-6 max-w-2xl text-sm leading-7 text-white/58">{item.summary}</p>
+        <p className="mt-6 max-w-2xl text-sm leading-7 text-white/58 max-[640px]:mt-4">{item.summary}</p>
       </div>
     </motion.article>
   );
@@ -103,6 +109,11 @@ function TimelineItem({ item }) {
 export default function ExperienceTimeline() {
   const ref = useRef(null);
   const shouldReduceMotion = useReducedMotion();
+  const [motionReady, setMotionReady] = useState(false);
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setMotionReady(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 70%", "end 30%"],
@@ -112,18 +123,18 @@ export default function ExperienceTimeline() {
   return (
     <section id="experience" className="section-pad relative" ref={ref}>
       <div className="content-grid">
-        <div className="mb-12 max-w-3xl">
+        <div className="mb-12 max-w-3xl max-[640px]:mb-8">
           <p className="mb-4 text-sm font-semibold uppercase text-ember">Background</p>
           <h2 className="fluid-copy type-section-title font-display font-semibold text-porcelain">
             Experience
           </h2>
         </div>
 
-        <div className="relative grid gap-5 md:gap-8">
+        <div className="relative grid gap-5 max-[640px]:gap-3 md:gap-8">
           <div className="absolute left-[12.95rem] top-0 hidden h-full w-px bg-white/10 md:block" />
           <motion.div
             className="absolute left-[12.95rem] top-0 hidden h-full w-px origin-top bg-cyan/45 md:block"
-            style={{ scaleY: shouldReduceMotion === false ? scaleY : 1 }}
+            style={{ scaleY: motionReady && shouldReduceMotion === false ? scaleY : 1 }}
             aria-hidden="true"
           />
           {experience.map((item) => (

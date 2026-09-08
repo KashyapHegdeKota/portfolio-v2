@@ -70,10 +70,10 @@ export default function ProjectCard({ project }) {
 
   return (
     <article
-      className={`group relative min-h-[320px] overflow-hidden rounded-[8px] border border-white/10 bg-[#101010]/72 transition-colors duration-300 ${accent.border}`}
+      className={`group relative min-h-[320px] overflow-hidden rounded-[8px] border border-white/10 bg-[#101010]/72 transition-colors duration-300 max-[640px]:min-h-0 ${accent.border}`}
     >
-      <div className="relative flex h-full min-h-[320px] flex-col">
-        <div className="relative min-h-[210px] flex-1 overflow-hidden border-b border-white/10">
+      <div className="relative flex h-full min-h-[320px] flex-col max-[640px]:min-h-0">
+        <div className="relative min-h-[210px] flex-1 overflow-hidden border-b border-white/10 max-[640px]:min-h-[170px]">
           <Image
             src={project.imageUrl}
             alt={`${project.title} interface preview`}
@@ -100,8 +100,8 @@ export default function ProjectCard({ project }) {
           </div>
         </div>
 
-        <div className="relative flex flex-1 flex-col p-5">
-          <div className="mb-4 flex items-start justify-between gap-4">
+        <div className="relative flex flex-1 flex-col p-5 max-[640px]:p-4">
+          <div className="mb-4 flex items-start justify-between gap-4 max-[640px]:mb-3 max-[640px]:gap-3">
             <div>
               <p className={`mb-2 text-xs font-semibold uppercase ${accent.text}`}>
                 {project.metric}
@@ -117,7 +117,7 @@ export default function ProjectCard({ project }) {
 
           <p className="text-sm leading-6 text-white/58">{project.description}</p>
 
-          <div className="mt-5 flex flex-wrap gap-x-2 gap-y-1 text-[0.72rem] text-white/62">
+          <div className="mt-5 flex flex-wrap gap-x-2 gap-y-1 text-[0.72rem] text-white/62 max-[640px]:mt-4">
             {project.tags.map((tag, index) => (
               <span key={tag}>
                 {tag}
@@ -128,7 +128,7 @@ export default function ProjectCard({ project }) {
             ))}
           </div>
 
-          <div className="mt-auto pt-6">
+          <div className="mt-auto pt-6 max-[640px]:pt-4">
             <ProjectActions project={project} />
           </div>
         </div>

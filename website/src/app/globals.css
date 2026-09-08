@@ -275,7 +275,15 @@ canvas {
   }
 
   .section-pad {
-    padding-block: clamp(4.5rem, 14vw, 6.5rem);
+    padding-block: clamp(3.5rem, 10vw, 5rem);
+  }
+
+  .article-pad {
+    padding-top: 7rem;
+  }
+
+  .section-pad.hero-pad {
+    padding-top: 5.75rem;
   }
 }
 

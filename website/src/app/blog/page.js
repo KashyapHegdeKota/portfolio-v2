@@ -15,7 +15,7 @@ export default function BlogIndexPage() {
   return (
     <section className="section-pad min-h-screen pt-32">
       <div className="content-grid">
-        <div className="mb-12 grid gap-6 lg:grid-cols-[0.9fr_0.55fr] lg:items-end">
+        <div className="mb-12 grid gap-6 max-[640px]:mb-8 max-[640px]:gap-4 lg:grid-cols-[0.9fr_0.55fr] lg:items-end">
           <div>
             <p className="mb-4 text-sm font-semibold uppercase text-cyan">Journal</p>
             <h1 className="fluid-copy type-route-title font-display font-semibold text-porcelain">
@@ -38,11 +38,11 @@ export default function BlogIndexPage() {
         {featuredPost && (
           <Link
             href={`/blog/${featuredPost.slug}`}
-            className="group glass-panel mb-4 grid overflow-hidden rounded-[8px] p-6 transition duration-500 hover:border-cyan/40 md:grid-cols-[0.88fr_0.42fr]"
+            className="group glass-panel mb-4 grid overflow-hidden rounded-[8px] p-6 transition duration-500 max-[640px]:p-4 hover:border-cyan/40 md:grid-cols-[0.88fr_0.42fr]"
             data-cursor="button"
           >
             <div>
-              <div className="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs uppercase">
+              <div className="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs uppercase max-[640px]:mb-4">
                 <span className="text-acid">
                   Featured
                 </span>
@@ -56,11 +56,11 @@ export default function BlogIndexPage() {
               <h2 className="fluid-copy type-feature-title font-display max-w-3xl font-semibold text-porcelain">
                 {featuredPost.title}
               </h2>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-white/58">
+              <p className="mt-5 max-w-2xl text-base leading-7 text-white/58 max-[640px]:mt-4">
                 {featuredPost.description}
               </p>
             </div>
-            <div className="mt-8 flex flex-col justify-between gap-10 border-t border-white/10 pt-6 md:mt-0 md:border-l md:border-t-0 md:pl-6 md:pt-0">
+            <div className="mt-8 flex flex-col justify-between gap-10 border-t border-white/10 pt-6 max-[640px]:mt-5 max-[640px]:gap-6 max-[640px]:pt-4 md:mt-0 md:border-l md:border-t-0 md:pl-6 md:pt-0">
               <div className="text-sm text-white/62">
                 <p>{featuredPost.date}</p>
                 <p className="mt-2 inline-flex items-center gap-2">
@@ -82,10 +82,10 @@ export default function BlogIndexPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group glass-panel rounded-[8px] p-5 transition duration-500 hover:border-ember/40"
+                className="group glass-panel rounded-[8px] p-5 transition duration-500 max-[640px]:p-4 hover:border-ember/40"
                 data-cursor="link"
               >
-                <div className="mb-5 flex items-center justify-between gap-4 text-xs uppercase text-white/60">
+                <div className="mb-5 flex items-center justify-between gap-4 text-xs uppercase text-white/60 max-[640px]:mb-4">
                   <span>{post.date}</span>
                   <span className="inline-flex items-center gap-2">
                     <Clock size={13} />
@@ -95,8 +95,8 @@ export default function BlogIndexPage() {
                 <h2 className="font-display text-3xl font-semibold leading-tight text-porcelain">
                   {post.title}
                 </h2>
-                <p className="mt-4 text-sm leading-6 text-white/58">{post.description}</p>
-                <div className="mt-6 flex flex-wrap gap-x-2 gap-y-1 text-[0.7rem] text-white/62">
+                <p className="mt-4 text-sm leading-6 text-white/58 max-[640px]:mt-3">{post.description}</p>
+                <div className="mt-6 flex flex-wrap gap-x-2 gap-y-1 text-[0.7rem] text-white/62 max-[640px]:mt-4">
                   {post.tags.slice(0, 3).map((tag, index) => (
                     <span key={tag}>
                       {tag}

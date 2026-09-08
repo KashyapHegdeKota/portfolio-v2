@@ -17,6 +17,12 @@ export default function PageTransition({ children }) {
   const pathname = usePathname();
   const shouldReduceMotion = useReducedMotion();
   const [transitioning, setTransitioning] = useState(false);
+  const [motionReady, setMotionReady] = useState(false);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setMotionReady(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   useEffect(() => {
     if (shouldReduceMotion !== false) {
@@ -39,6 +45,7 @@ export default function PageTransition({ children }) {
     }),
     [pathname, transitioning],
   );
+  const canAnimate = motionReady && shouldReduceMotion === false;
 
   return (
     <PageTransitionContext.Provider value={value}>
@@ -48,10 +55,10 @@ export default function PageTransition({ children }) {
           id="main-content"
           tabIndex={-1}
           className={transitioning ? "pointer-events-none" : undefined}
-          initial={shouldReduceMotion === false ? { opacity: 0, y: 6 } : false}
-          animate={shouldReduceMotion === false ? { opacity: 1, y: 0 } : undefined}
-          exit={shouldReduceMotion === false ? { opacity: 0, y: -4 } : undefined}
-          transition={shouldReduceMotion === false ? { duration: 0.22, ease: [0.25, 1, 0.5, 1] } : undefined}
+          initial={canAnimate ? { opacity: 0, y: 6 } : false}
+          animate={canAnimate ? { opacity: 1, y: 0 } : undefined}
+          exit={canAnimate ? { opacity: 0, y: -4 } : undefined}
+          transition={canAnimate ? { duration: 0.22, ease: [0.25, 1, 0.5, 1] } : undefined}
         >
           {children}
         </motion.main>

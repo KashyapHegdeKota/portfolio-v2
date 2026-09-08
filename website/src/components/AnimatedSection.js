@@ -1,6 +1,7 @@
 // src/components/AnimatedSection.js
 "use client";
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const variants = {
   hidden: { opacity: 0, y: 12 },
@@ -21,11 +22,19 @@ export default function AnimatedSection({
   ...props
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const [motionReady, setMotionReady] = useState(false);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setMotionReady(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
+  const canAnimate = motionReady && shouldReduceMotion === false;
 
   return (
     <motion.div
-      initial={shouldReduceMotion === false ? "hidden" : "visible"}
-      whileInView="visible"
+      initial={canAnimate ? "hidden" : "visible"}
+      whileInView={canAnimate ? "visible" : undefined}
       viewport={{ once: true, amount: 0.2 }}
       variants={variants}
       transition={{ delay: Math.min(delay, 0.12) }}
