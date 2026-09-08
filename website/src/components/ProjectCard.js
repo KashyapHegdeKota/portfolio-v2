@@ -64,7 +64,7 @@ export function ProjectActions({ project, compact = false }) {
   );
 }
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, featured = false }) {
   const accent = accentMap[project.accent] ?? accentMap.cyan;
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -80,7 +80,9 @@ export default function ProjectCard({ project }) {
             fill
             loading="lazy"
             quality={82}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 720px"
+            sizes={featured
+              ? "(max-width: 768px) 100vw, 1180px"
+              : "(max-width: 768px) 100vw, 580px"}
             className={`object-cover transition duration-500 group-hover:scale-[1.025] ${
               imageLoaded ? "opacity-100 blur-0" : "opacity-0 blur-md"
             }`}

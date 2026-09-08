@@ -29,7 +29,7 @@ export default function Projects() {
               className={index === 0 ? "lg:col-span-2" : ""}
               delay={0.08 * index}
             >
-              <ProjectCard project={project} />
+              <ProjectCard project={project} featured={index === 0} />
             </AnimatedSection>
           ))}
         </div>

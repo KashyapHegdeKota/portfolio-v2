@@ -41,7 +41,7 @@ export const projectsData = [
     metric: "ResNet-50 + LSTM",
     description:
       "An end-to-end AI captioning system with a PyTorch training pipeline, custom vocabulary, Streamlit inference app, and batch-friendly CLI.",
-    imageUrl: "/captionme.png",
+    imageUrl: "/captionme.webp",
     tags: ["Python", "PyTorch", "Streamlit", "Deep Learning"],
     liveUrl: "https://captionme.kashyaphegde.com/",
     repoUrl: "https://github.com/KashyapHegdeKota/CaptionMe",
@@ -57,7 +57,7 @@ export const projectsData = [
     metric: "8 moods",
     description:
       "Pick a Family Guy episode based on one of eight moods. Built with React and an AWS serverless backend, with interactive feedback as you choose.",
-    imageUrl: "/family-guy-recommender.png",
+    imageUrl: "/family-guy-recommender.webp",
     tags: ["React", "AWS Lambda", "Serverless"],
     liveUrl: "https://familyguy.kashyaphegde.com/",
     repoUrl: "https://github.com/KashyapHegdeKota/family-guy-episode-recommender",
@@ -73,7 +73,7 @@ export const projectsData = [
     metric: "LoRA fine-tuned",
     description:
       "An algorithm tutor that guides users with questions, using a custom Code-Vision model, scraped multimodal datasets, and an MLOps training pipeline.",
-    imageUrl: "/leetbuddy.png",
+    imageUrl: "/leetbuddy.webp",
     tags: ["Python", "LLaVA", "LoRA", "MLOps"],
     repoUrl: "https://github.com/KashyapHegdeKota/LeetBuddy",
     accent: "cyan",
@@ -88,7 +88,7 @@ export const projectsData = [
     metric: "Random Forest model",
     description:
       "A location and time based risk forecasting tool using public ASU police data, feature engineering, and scikit-learn classification workflows.",
-    imageUrl: "/crime-predictor.png",
+    imageUrl: "/crime-predictor.webp",
     tags: ["Python", "Machine Learning", "scikit-learn"],
     repoUrl: "https://github.com/KashyapHegdeKota/Crime-Predictor",
     accent: "ember",
@@ -103,7 +103,7 @@ export const projectsData = [
     metric: "Real-time forecast",
     description:
       "Look up weather forecasts with city autocomplete and OpenWeatherMap integration in a responsive web app.",
-    imageUrl: "/ezgif-5-1c90407034.png",
+    imageUrl: "/ezgif-5-1c90407034.webp",
     tags: ["JavaScript", "OpenWeatherMap API", "Responsive Design"],
     liveUrl: "https://weather.kashyaphegde.com/",
     repoUrl: "https://github.com/KashyapHegdeKota/weather-app",
@@ -119,7 +119,7 @@ export const projectsData = [
     metric: "Firestore backed",
     description:
       "A Next.js and Firebase pantry manager with Google authentication, AI chat assistance, and secure real-time data storage.",
-    imageUrl: "/pantry.png",
+    imageUrl: "/pantry.webp",
     tags: ["Next.js", "Firebase", "Generative AI", "Firestore"],
     liveUrl: "https://pantry.kashyaphegde.com/",
     repoUrl: "https://github.com/KashyapHegdeKota/PantryTracker",

@@ -148,11 +148,12 @@ export default function Hero() {
             className="glass-panel relative aspect-[4/5] overflow-hidden rounded-[8px]"
           >
             <Image
-              src="/Kashyap picture.jpg"
+              src="/Kashyap picture.webp"
               alt="Portrait of Kashyap Hegde Kota"
               fill
               priority
-              sizes="(max-width: 768px) 86vw, 430px"
+              quality={82}
+              sizes="(max-width: 640px) 300px, (max-width: 768px) 86vw, 430px"
               className="object-cover grayscale-[0.12] saturate-[1.12]"
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/72 to-transparent p-5">
