@@ -72,7 +72,7 @@ export default function Hero() {
   return (
     <section
       id="about"
-      className="section-pad hero-pad relative flex min-h-[92svh] items-center overflow-hidden pt-32 max-[640px]:min-h-0 max-[640px]:pt-24"
+      className="section-pad hero-pad relative flex min-h-[92svh] items-center overflow-hidden pt-32 max-[640px]:min-h-0"
     >
       <div
         className="pointer-events-none absolute left-[8%] top-28 h-44 w-44 border border-cyan/20"
