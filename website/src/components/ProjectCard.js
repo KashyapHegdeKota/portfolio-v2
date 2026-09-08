@@ -26,11 +26,11 @@ const accentMap = {
 
 export function ProjectActions({ project, compact = false }) {
   const liveClass = compact
-    ? "inline-flex min-h-10 items-center gap-2 py-2 text-sm font-semibold text-porcelain transition-colors hover:text-acid"
-    : "inline-flex h-10 items-center gap-2 rounded-[8px] bg-porcelain px-3 text-sm font-semibold text-ink transition-colors hover:bg-acid";
+    ? "inline-flex min-h-11 items-center gap-2 py-2 text-sm font-semibold text-porcelain transition-colors hover:text-acid"
+    : "inline-flex h-11 items-center gap-2 rounded-[8px] bg-porcelain px-3 text-sm font-semibold text-ink transition-colors hover:bg-acid";
   const codeClass = compact
-    ? "inline-flex min-h-10 items-center gap-2 py-2 text-sm font-semibold text-white/58 transition-colors hover:text-cyan"
-    : "inline-flex h-10 items-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.04] px-3 text-sm font-semibold text-porcelain transition-colors hover:border-cyan/40";
+    ? "inline-flex min-h-11 items-center gap-2 py-2 text-sm font-semibold text-white/62 transition-colors hover:text-cyan"
+    : "inline-flex h-11 items-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.04] px-3 text-sm font-semibold text-porcelain transition-colors hover:border-cyan/40";
 
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
@@ -40,6 +40,7 @@ export function ProjectActions({ project, compact = false }) {
           target="_blank"
           rel="noopener noreferrer"
           className={liveClass}
+          aria-label={`View ${project.title} live demo`}
           data-cursor="button"
         >
           Live
@@ -52,6 +53,7 @@ export function ProjectActions({ project, compact = false }) {
           target="_blank"
           rel="noopener noreferrer"
           className={codeClass}
+          aria-label={`View ${project.title} source code`}
           data-cursor="link"
         >
           <Github size={15} />
@@ -108,14 +110,14 @@ export default function ProjectCard({ project }) {
                 {project.title}
               </h3>
             </div>
-            <span className="shrink-0 pt-1 text-xs uppercase text-white/54">
+              <span className="shrink-0 pt-1 text-xs uppercase text-white/62">
               {project.status}
             </span>
           </div>
 
           <p className="text-sm leading-6 text-white/58">{project.description}</p>
 
-          <div className="mt-5 flex flex-wrap gap-x-2 gap-y-1 text-[0.72rem] text-white/54">
+          <div className="mt-5 flex flex-wrap gap-x-2 gap-y-1 text-[0.72rem] text-white/62">
             {project.tags.map((tag, index) => (
               <span key={tag}>
                 {tag}

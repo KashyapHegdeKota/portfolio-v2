@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -48,6 +48,7 @@ const heroRevealVariants = {
 
 export default function Hero() {
   const [introReady, setIntroReady] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const revealHero = () => setIntroReady(true);
@@ -81,7 +82,7 @@ export default function Hero() {
         className="content-grid relative z-10 grid items-end gap-12 lg:grid-cols-[1.08fr_0.92fr]"
         initial="hidden"
         animate={introReady ? "visible" : "hidden"}
-        variants={heroRevealVariants}
+        variants={shouldReduceMotion === false ? heroRevealVariants : { hidden: { opacity: 1, y: 0 }, visible: { opacity: 1, y: 0 } }}
       >
         <div>
           <div
@@ -127,6 +128,7 @@ export default function Hero() {
             <a
               href="/resume.pdf"
               className="inline-flex h-12 w-full items-center justify-center rounded-[8px] border border-white/12 bg-white/[0.05] px-5 text-sm font-semibold text-porcelain backdrop-blur-glass transition-colors hover:border-cyan/40 sm:w-auto"
+              aria-label="Open resume PDF"
               data-cursor="link"
             >
               Resume
@@ -165,7 +167,7 @@ export default function Hero() {
                 <p className="font-display text-xl font-semibold text-porcelain">
                   {metric.value}
                 </p>
-                <p className="mt-2 text-[0.68rem] leading-4 text-white/45">
+                <p className="mt-2 text-[0.68rem] leading-4 text-white/60">
                   {metric.label}
                 </p>
               </div>
@@ -182,7 +184,7 @@ export default function Hero() {
               href={link.href}
               target={link.href.startsWith("http") ? "_blank" : undefined}
               rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="grid h-10 w-10 place-items-center rounded-[8px] border border-white/10 bg-white/[0.05] text-white/62 transition-colors hover:border-cyan/40 hover:text-porcelain"
+              className="grid h-11 w-11 place-items-center rounded-[8px] border border-white/10 bg-white/[0.05] text-white/62 transition-colors hover:border-cyan/40 hover:text-porcelain"
               aria-label={link.label}
               data-cursor="link"
             >

@@ -1,6 +1,6 @@
 // src/components/AnimatedSection.js
 "use client";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const variants = {
   hidden: { opacity: 0, y: 12 },
@@ -20,9 +20,11 @@ export default function AnimatedSection({
   delay = 0,
   ...props
 }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      initial="hidden"
+      initial={shouldReduceMotion === false ? "hidden" : "visible"}
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={variants}

@@ -47,7 +47,7 @@ export default function BlogIndexPage() {
                   Featured
                 </span>
                 {featuredPost.tags.slice(0, 3).map((tag) => (
-                  <span key={tag} className="text-white/50">
+                  <span key={tag} className="text-white/62">
                     <span className="mr-2 text-white/22" aria-hidden="true">/</span>
                     {tag}
                   </span>
@@ -61,7 +61,7 @@ export default function BlogIndexPage() {
               </p>
             </div>
             <div className="mt-8 flex flex-col justify-between gap-10 border-t border-white/10 pt-6 md:mt-0 md:border-l md:border-t-0 md:pl-6 md:pt-0">
-              <div className="text-sm text-white/48">
+              <div className="text-sm text-white/62">
                 <p>{featuredPost.date}</p>
                 <p className="mt-2 inline-flex items-center gap-2">
                   <Clock size={14} />
@@ -85,7 +85,7 @@ export default function BlogIndexPage() {
                 className="group glass-panel rounded-[8px] p-5 transition duration-500 hover:border-ember/40"
                 data-cursor="link"
               >
-                <div className="mb-5 flex items-center justify-between gap-4 text-xs uppercase text-white/42">
+                <div className="mb-5 flex items-center justify-between gap-4 text-xs uppercase text-white/60">
                   <span>{post.date}</span>
                   <span className="inline-flex items-center gap-2">
                     <Clock size={13} />
@@ -96,7 +96,7 @@ export default function BlogIndexPage() {
                   {post.title}
                 </h2>
                 <p className="mt-4 text-sm leading-6 text-white/58">{post.description}</p>
-                <div className="mt-6 flex flex-wrap gap-x-2 gap-y-1 text-[0.7rem] text-white/48">
+                <div className="mt-6 flex flex-wrap gap-x-2 gap-y-1 text-[0.7rem] text-white/62">
                   {post.tags.slice(0, 3).map((tag, index) => (
                     <span key={tag}>
                       {tag}

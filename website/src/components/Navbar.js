@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Rss, Sparkle, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const navItems = [
   { label: "Home", href: "/#about", id: "about" },
@@ -18,6 +18,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
+  const menuButtonRef = useRef(null);
   const onBlogRoute = pathname?.startsWith("/blog");
 
   const activeId = useMemo(() => {
@@ -29,8 +30,24 @@ export default function Navbar() {
   }, [activeSection, onBlogRoute]);
 
   useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+    if (!menuOpen) {
+      return undefined;
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key !== "Escape") {
+        return;
+      }
+
+      setMenuOpen(false);
+      window.requestAnimationFrame(() => {
+        menuButtonRef.current?.focus({ preventScroll: true });
+      });
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen]);
 
   useEffect(() => {
     if (onBlogRoute) {
@@ -78,7 +95,7 @@ export default function Navbar() {
             <span className="font-display text-sm font-semibold text-porcelain">
               Kashyap Hegde Kota
             </span>
-            <span className="mt-1 text-[0.68rem] uppercase text-white/45">
+            <span className="mt-1 text-[0.68rem] uppercase text-white/60">
               AI Product Engineer
             </span>
           </span>
@@ -89,7 +106,7 @@ export default function Navbar() {
             <Link
               key={item.id}
               href={item.href}
-              className="relative rounded-[7px] px-4 py-2 text-sm font-medium text-white/62 transition-colors duration-200 hover:text-porcelain"
+              className="relative min-h-11 rounded-[7px] px-4 py-2 text-sm font-medium text-white/62 transition-colors duration-200 hover:text-porcelain"
               data-cursor="link"
             >
               {activeId === item.id && (
@@ -107,7 +124,7 @@ export default function Navbar() {
         <div className="hidden items-center gap-2 md:flex">
           <Link
             href="/blog"
-            className="inline-flex h-10 items-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.06] px-3 text-sm font-medium text-porcelain transition-colors hover:border-cyan/40"
+            className="inline-flex h-11 items-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.06] px-3 text-sm font-medium text-porcelain transition-colors hover:border-cyan/40"
             data-cursor="button"
           >
             <Rss size={16} />
@@ -117,9 +134,11 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="grid h-10 w-10 place-items-center rounded-[8px] border border-white/10 bg-white/[0.06] text-porcelain md:hidden"
+          ref={menuButtonRef}
+          className="grid h-11 w-11 place-items-center rounded-[8px] border border-white/10 bg-white/[0.06] text-porcelain md:hidden"
           onClick={() => setMenuOpen((value) => !value)}
           aria-label="Toggle navigation menu"
+          aria-controls="mobile-navigation"
           aria-expanded={menuOpen}
           data-cursor="button"
         >
@@ -130,6 +149,7 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            id="mobile-navigation"
             className="mx-auto mt-3 w-full max-w-5xl overflow-hidden rounded-[8px] border border-white/10 bg-[#101010]/92 shadow-[0_22px_90px_rgba(0,0,0,0.5)] backdrop-blur-glass md:hidden"
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -141,7 +161,7 @@ export default function Navbar() {
                 <Link
                   key={item.id}
                   href={item.href}
-                  className="flex items-center justify-between rounded-[8px] px-4 py-3 text-sm font-medium text-white/70 transition-colors hover:bg-white/[0.06] hover:text-porcelain"
+                  className="flex min-h-11 items-center justify-between rounded-[8px] px-4 py-3 text-sm font-medium text-white/70 transition-colors hover:bg-white/[0.06] hover:text-porcelain"
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}

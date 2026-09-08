@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { BriefcaseBusiness, Cpu, GraduationCap } from "lucide-react";
 import { useRef } from "react";
 
@@ -40,14 +40,15 @@ const experience = [
 function TimelineItem({ item }) {
   const ref = useRef(null);
   const inView = useInView(ref, { amount: 0.42, once: false });
+  const shouldReduceMotion = useReducedMotion();
   const Icon = item.icon;
 
   return (
     <motion.article
       ref={ref}
       className="relative grid gap-5 md:grid-cols-[12rem_1fr]"
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={shouldReduceMotion === false ? { opacity: 0, y: 14 } : false}
+      whileInView={shouldReduceMotion === false ? { opacity: 1, y: 0 } : undefined}
       viewport={{ amount: 0.36, once: true }}
       transition={{ duration: 0.42, ease: [0.25, 1, 0.5, 1] }}
     >
@@ -73,14 +74,14 @@ function TimelineItem({ item }) {
               <span className={`grid h-10 w-10 place-items-center rounded-[8px] border border-white/10 bg-white/[0.05] ${item.accent}`}>
                 <Icon size={18} />
               </span>
-              <span className="rounded-[8px] border border-white/10 px-3 py-1 text-xs uppercase text-white/48 md:hidden">
+              <span className="rounded-[8px] border border-white/10 px-3 py-1 text-xs uppercase text-white/60 md:hidden">
                 {item.date}
               </span>
             </div>
             <h3 className="font-display text-3xl font-semibold leading-tight text-porcelain">
               {item.title}
             </h3>
-            <p className="mt-2 text-sm uppercase text-white/45">{item.org}</p>
+            <p className="mt-2 text-sm uppercase text-white/60">{item.org}</p>
           </div>
           <ul className="flex max-w-md list-disc flex-wrap gap-x-5 gap-y-2 pl-4 marker:text-white/24">
             {item.impact.map((impact) => (
@@ -101,6 +102,7 @@ function TimelineItem({ item }) {
 
 export default function ExperienceTimeline() {
   const ref = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 70%", "end 30%"],
@@ -121,7 +123,7 @@ export default function ExperienceTimeline() {
           <div className="absolute left-[12.95rem] top-0 hidden h-full w-px bg-white/10 md:block" />
           <motion.div
             className="absolute left-[12.95rem] top-0 hidden h-full w-px origin-top bg-cyan/45 md:block"
-            style={{ scaleY }}
+            style={{ scaleY: shouldReduceMotion === false ? scaleY : 1 }}
             aria-hidden="true"
           />
           {experience.map((item) => (

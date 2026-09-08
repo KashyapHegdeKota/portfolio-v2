@@ -43,7 +43,7 @@ export default function Projects() {
                 className="grid gap-5 py-6 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)_auto] md:items-start md:gap-8"
               >
                 <div>
-                  <p className="text-xs uppercase text-white/48">
+                  <p className="text-xs uppercase text-white/62">
                     {project.eyebrow}
                     <span className="mx-2 text-white/22" aria-hidden="true">/</span>
                     {project.year}
@@ -62,7 +62,7 @@ export default function Projects() {
                   <p className="max-w-2xl text-sm leading-6 text-white/58">
                     {project.description}
                   </p>
-                  <div className="mt-3 flex flex-wrap gap-x-2 gap-y-1 text-[0.72rem] text-white/54">
+                  <div className="mt-3 flex flex-wrap gap-x-2 gap-y-1 text-[0.72rem] text-white/62">
                     {project.tags.map((tag, index) => (
                       <span key={tag}>
                         {tag}

@@ -3,9 +3,10 @@
 import {
   motion,
   useMotionValue,
+  useReducedMotion,
   useSpring,
 } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 
 const spring = {
   stiffness: 320,
@@ -21,23 +22,21 @@ export default function Magnetic({
   cursor = "button",
 }) {
   const ref = useRef(null);
-  const [enabled, setEnabled] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const smoothX = useSpring(x, spring);
   const smoothY = useSpring(y, spring);
 
-  useEffect(() => {
-    const finePointer = window.matchMedia("(pointer: fine)").matches;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setEnabled(finePointer && !reducedMotion);
-  }, []);
-
   const handlePointerMove = useCallback(
     (event) => {
       const element = ref.current;
 
-      if (!element || !enabled) {
+      if (
+        !element ||
+        shouldReduceMotion !== false ||
+        !window.matchMedia("(pointer: fine)").matches
+      ) {
         return;
       }
 
@@ -48,7 +47,7 @@ export default function Magnetic({
       x.set((event.clientX - centerX) * strength);
       y.set((event.clientY - centerY) * strength);
     },
-    [enabled, strength, x, y],
+    [shouldReduceMotion, strength, x, y],
   );
 
   const handlePointerLeave = useCallback(() => {
@@ -68,7 +67,7 @@ export default function Magnetic({
         x: smoothX,
         y: smoothY,
       }}
-      whileHover={enabled ? { scale } : undefined}
+      whileHover={shouldReduceMotion === false ? { scale } : undefined}
       transition={{ type: "spring", stiffness: 420, damping: 32, mass: 0.5 }}
     >
       {children}
