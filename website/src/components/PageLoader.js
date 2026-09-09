@@ -19,10 +19,16 @@ export default function PageLoader() {
     }
 
     if (reducedMotion || seen) {
-      window.dispatchEvent(new Event("f1-loader-lights-out"));
-      window.dispatchEvent(new Event("f1-loader-complete"));
-      setMode("complete");
-      return;
+      const timer = window.setTimeout(() => {
+        window.dispatchEvent(new Event("f1-loader-lights-out"));
+        window.dispatchEvent(new Event("f1-loader-complete"));
+        setMode("complete");
+        window.setTimeout(() => {
+          document.getElementById("main-content")?.focus({ preventScroll: true });
+        }, 0);
+      }, 0);
+
+      return () => window.clearTimeout(timer);
     }
 
     try {
@@ -31,8 +37,22 @@ export default function PageLoader() {
       // Session persistence is a progressive enhancement.
     }
 
-    setMode("full");
+    const timer = window.setTimeout(() => setMode("full"), 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (mode !== "complete") {
+      return undefined;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById("main-content")?.focus({ preventScroll: true });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [mode]);
 
   useEffect(() => {
     if (mode !== "full") {
@@ -69,6 +89,9 @@ export default function PageLoader() {
       onComplete={() => {
         window.dispatchEvent(new Event("f1-loader-complete"));
         setMode("complete");
+        window.setTimeout(() => {
+          document.getElementById("main-content")?.focus({ preventScroll: true });
+        }, 0);
       }}
     />
   );

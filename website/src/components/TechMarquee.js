@@ -35,10 +35,10 @@ function startLoop(controls) {
 export default function TechMarquee() {
   const controls = useAnimationControls();
   const shouldReduceMotion = useReducedMotion();
-  const items = shouldReduceMotion ? stack : [...stack, ...stack];
+  const items = [...stack, ...stack];
 
   useEffect(() => {
-    if (shouldReduceMotion) {
+    if (shouldReduceMotion !== false) {
       controls.set({ x: "0%" });
       return;
     }

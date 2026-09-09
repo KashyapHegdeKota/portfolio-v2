@@ -104,6 +104,8 @@ export default function F1PageLoader({
   const [visible, setVisible] = useState(true);
   const timeoutRefs = useRef(/** @type {number[]} */ ([]));
   const finishingRef = useRef(false);
+  const completedRef = useRef(false);
+  const skipButtonRef = useRef(null);
 
   const clearTimers = useCallback(() => {
     timeoutRefs.current.forEach((timer) => window.clearTimeout(timer));
@@ -136,6 +138,28 @@ export default function F1PageLoader({
     await wait(LIGHTS_OUT_PAYOFF_MS);
     setVisible(false);
   }, [clearTimers, onLightsOut, wait]);
+
+  useEffect(() => {
+    const previousActiveElement =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const protectedNodes = Array.from(document.querySelectorAll("main, header, footer"));
+    const hadInert = new Map(protectedNodes.map((node) => [node, node.hasAttribute("inert")]));
+
+    protectedNodes.forEach((node) => node.setAttribute("inert", ""));
+    skipButtonRef.current?.focus({ preventScroll: true });
+
+    return () => {
+      protectedNodes.forEach((node) => {
+        if (!hadInert.get(node)) {
+          node.removeAttribute("inert");
+        }
+      });
+
+      if (!completedRef.current && previousActiveElement?.isConnected) {
+        previousActiveElement.focus({ preventScroll: true });
+      }
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -180,6 +204,7 @@ export default function F1PageLoader({
   ]);
 
   const handleExitComplete = useCallback(() => {
+    completedRef.current = true;
     setStatus("complete");
     onComplete?.();
   }, [onComplete]);
@@ -191,6 +216,7 @@ export default function F1PageLoader({
           className="fixed inset-0 z-[120] overflow-hidden bg-[#0a0a0a]"
           aria-live="polite"
           aria-label="F1 lights-out introduction"
+          aria-labelledby="f1-loader-title"
           aria-modal="true"
           role="dialog"
           initial="loading"
@@ -200,7 +226,8 @@ export default function F1PageLoader({
         >
           <button
             type="button"
-            className="absolute right-4 top-4 z-30 inline-flex h-10 items-center rounded-[8px] border border-white/16 bg-black/48 px-4 text-xs font-semibold uppercase tracking-[0.18em] text-white/78 transition-colors hover:border-cyan/45 hover:text-porcelain focus:outline-none focus:ring-2 focus:ring-cyan focus:ring-offset-2 focus:ring-offset-[#0a0a0a]"
+            ref={skipButtonRef}
+            className="absolute right-4 top-4 z-30 inline-flex h-11 items-center rounded-[8px] border border-white/16 bg-black/48 px-4 text-xs font-semibold uppercase tracking-[0.18em] text-white/78 transition-colors hover:border-cyan/45 hover:text-porcelain focus:outline-none focus:ring-2 focus:ring-cyan focus:ring-offset-2 focus:ring-offset-[#0a0a0a]"
             onClick={finishSequence}
           >
             Skip intro
@@ -226,10 +253,10 @@ export default function F1PageLoader({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <p className="font-display text-xs font-semibold uppercase tracking-[0.42em] text-white/38">
+              <p className="font-display text-xs font-semibold uppercase tracking-[0.42em] text-white/62">
                 Formation lap complete
               </p>
-              <h1 className="mt-3 font-display text-[clamp(2.4rem,8vw,6.5rem)] font-semibold uppercase leading-none text-white">
+              <h1 id="f1-loader-title" className="mt-3 font-display text-[clamp(2.4rem,8vw,6.5rem)] font-semibold uppercase leading-none text-white">
                 Five lights
               </h1>
             </motion.div>
@@ -259,9 +286,7 @@ export default function F1PageLoader({
                               mass: 0.55,
                             }
                       }
-                      aria-label={`Race start light ${index + 1} ${
-                        isLit && status !== "launch" ? "red" : "off"
-                      }`}
+                      aria-hidden="true"
                     >
                       <span className="h-[70%] w-[70%] rounded-full border border-white/10 bg-[radial-gradient(circle_at_35%_28%,rgba(255,255,255,0.38),transparent_18%),radial-gradient(circle,rgba(255,255,255,0.08),transparent_62%)]" />
                     </motion.div>

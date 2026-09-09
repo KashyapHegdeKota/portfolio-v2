@@ -26,11 +26,11 @@ const accentMap = {
 
 export function ProjectActions({ project, compact = false }) {
   const liveClass = compact
-    ? "inline-flex min-h-10 items-center gap-2 py-2 text-sm font-semibold text-porcelain transition-colors hover:text-acid"
-    : "inline-flex h-10 items-center gap-2 rounded-[8px] bg-porcelain px-3 text-sm font-semibold text-ink transition-colors hover:bg-acid";
+    ? "inline-flex min-h-11 items-center gap-2 py-2 text-sm font-semibold text-porcelain transition-colors hover:text-acid"
+    : "inline-flex h-11 items-center gap-2 rounded-[8px] bg-porcelain px-3 text-sm font-semibold text-ink transition-colors hover:bg-acid";
   const codeClass = compact
-    ? "inline-flex min-h-10 items-center gap-2 py-2 text-sm font-semibold text-white/58 transition-colors hover:text-cyan"
-    : "inline-flex h-10 items-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.04] px-3 text-sm font-semibold text-porcelain transition-colors hover:border-cyan/40";
+    ? "inline-flex min-h-11 items-center gap-2 py-2 text-sm font-semibold text-white/62 transition-colors hover:text-cyan"
+    : "inline-flex h-11 items-center gap-2 rounded-[8px] border border-white/10 bg-white/[0.04] px-3 text-sm font-semibold text-porcelain transition-colors hover:border-cyan/40";
 
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
@@ -40,6 +40,7 @@ export function ProjectActions({ project, compact = false }) {
           target="_blank"
           rel="noopener noreferrer"
           className={liveClass}
+          aria-label={`View ${project.title} live demo`}
           data-cursor="button"
         >
           Live
@@ -52,6 +53,7 @@ export function ProjectActions({ project, compact = false }) {
           target="_blank"
           rel="noopener noreferrer"
           className={codeClass}
+          aria-label={`View ${project.title} source code`}
           data-cursor="link"
         >
           <Github size={15} />
@@ -62,23 +64,25 @@ export function ProjectActions({ project, compact = false }) {
   );
 }
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, featured = false }) {
   const accent = accentMap[project.accent] ?? accentMap.cyan;
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <article
-      className={`group relative min-h-[320px] overflow-hidden rounded-[8px] border border-white/10 bg-[#101010]/72 transition-colors duration-300 ${accent.border}`}
+      className={`group relative min-h-[320px] overflow-hidden rounded-[8px] border border-white/10 bg-[#101010]/72 transition-colors duration-300 max-[640px]:min-h-0 ${accent.border}`}
     >
-      <div className="relative flex h-full min-h-[320px] flex-col">
-        <div className="relative min-h-[210px] flex-1 overflow-hidden border-b border-white/10">
+      <div className="relative flex h-full min-h-[320px] flex-col max-[640px]:min-h-0">
+        <div className="relative min-h-[210px] flex-1 overflow-hidden border-b border-white/10 max-[640px]:min-h-[170px]">
           <Image
             src={project.imageUrl}
             alt={`${project.title} interface preview`}
             fill
             loading="lazy"
             quality={82}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 720px"
+            sizes={featured
+              ? "(max-width: 768px) 100vw, 1180px"
+              : "(max-width: 768px) 100vw, 580px"}
             className={`object-cover transition duration-500 group-hover:scale-[1.025] ${
               imageLoaded ? "opacity-100 blur-0" : "opacity-0 blur-md"
             }`}
@@ -98,8 +102,8 @@ export default function ProjectCard({ project }) {
           </div>
         </div>
 
-        <div className="relative flex flex-1 flex-col p-5">
-          <div className="mb-4 flex items-start justify-between gap-4">
+        <div className="relative flex flex-1 flex-col p-5 max-[640px]:p-4">
+          <div className="mb-4 flex items-start justify-between gap-4 max-[640px]:mb-3 max-[640px]:gap-3">
             <div>
               <p className={`mb-2 text-xs font-semibold uppercase ${accent.text}`}>
                 {project.metric}
@@ -108,14 +112,14 @@ export default function ProjectCard({ project }) {
                 {project.title}
               </h3>
             </div>
-            <span className="shrink-0 pt-1 text-xs uppercase text-white/54">
+              <span className="shrink-0 pt-1 text-xs uppercase text-white/62">
               {project.status}
             </span>
           </div>
 
           <p className="text-sm leading-6 text-white/58">{project.description}</p>
 
-          <div className="mt-5 flex flex-wrap gap-x-2 gap-y-1 text-[0.72rem] text-white/54">
+          <div className="mt-5 flex flex-wrap gap-x-2 gap-y-1 text-[0.72rem] text-white/62 max-[640px]:mt-4">
             {project.tags.map((tag, index) => (
               <span key={tag}>
                 {tag}
@@ -126,7 +130,7 @@ export default function ProjectCard({ project }) {
             ))}
           </div>
 
-          <div className="mt-auto pt-6">
+          <div className="mt-auto pt-6 max-[640px]:pt-4">
             <ProjectActions project={project} />
           </div>
         </div>

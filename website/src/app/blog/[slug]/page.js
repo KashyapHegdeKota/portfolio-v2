@@ -54,19 +54,19 @@ export default async function BlogPostPage({ params }) {
   }
 
   return (
-    <article className="section-pad min-h-screen pt-32">
+    <article className="section-pad article-pad min-h-screen pt-32">
       <div className="content-grid">
         <Link
           href="/blog"
-          className="mb-10 inline-flex items-center gap-2 text-sm font-semibold text-white/54 transition-colors hover:text-cyan"
+          className="mb-10 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-white/62 transition-colors max-[640px]:mb-6 hover:text-cyan"
           data-cursor="link"
         >
           <ArrowLeft size={16} />
           Back to notes
         </Link>
 
-        <header className="mb-12 border-b border-white/10 pb-10">
-          <div className="mb-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-white/50">
+        <header className="mb-12 border-b border-white/10 pb-10 max-[640px]:mb-8 max-[640px]:pb-6">
+          <div className="mb-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-white/62 max-[640px]:mb-4">
             {post.tags.map((tag, index) => (
               <span key={tag}>
                 {tag}
@@ -79,14 +79,14 @@ export default async function BlogPostPage({ params }) {
           <h1 className="fluid-copy type-article-title font-display max-w-5xl font-semibold text-porcelain">
             {post.title}
           </h1>
-          <div className="mt-7 flex flex-wrap gap-4 text-sm text-white/48">
+          <div className="mt-7 flex flex-wrap gap-4 text-sm text-white/62 max-[640px]:mt-5">
             <span>{post.date}</span>
             <span className="inline-flex items-center gap-2">
               <Clock size={14} />
               {post.readingTime}
             </span>
           </div>
-          <p className="mt-8 max-w-3xl text-lg leading-8 text-white/62">
+          <p className="mt-8 max-w-3xl text-lg leading-8 text-white/62 max-[640px]:mt-5">
             {post.description}
           </p>
         </header>

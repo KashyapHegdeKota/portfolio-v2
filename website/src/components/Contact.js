@@ -1,11 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Mail, Send } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Github, Linkedin } from "./BrandIcons";
 import Magnetic from "./Magnetic";
 
-const defaultPhrase = "Let's build the next sharp thing.";
+const defaultPhrase = "Tell me what you're building.";
 
 const contacts = [
   {
@@ -29,14 +30,24 @@ const contacts = [
 ];
 
 export default function Contact() {
+  const shouldReduceMotion = useReducedMotion();
+  const [motionReady, setMotionReady] = useState(false);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setMotionReady(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
+  const canAnimate = motionReady && shouldReduceMotion === false;
+
   return (
-    <section id="contact" className="section-pad relative pb-10">
+    <section id="contact" className="section-pad relative pb-10 max-[640px]:pb-6">
       <div className="content-grid">
-        <div className="grid gap-8 lg:grid-cols-[1fr_0.65fr]">
+        <div className="grid gap-8 max-[640px]:gap-5 lg:grid-cols-[1fr_0.65fr]">
           <motion.div
-            className="glass-panel overflow-hidden rounded-[8px] p-6 md:p-8"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="glass-panel overflow-hidden rounded-[8px] p-6 max-[640px]:p-5 md:p-8"
+            initial={canAnimate ? { opacity: 0, y: 12 } : false}
+            whileInView={canAnimate ? { opacity: 1, y: 0 } : undefined}
             viewport={{ once: true, amount: 0.36 }}
             transition={{ duration: 0.42, ease: [0.25, 1, 0.5, 1] }}
           >
@@ -44,19 +55,19 @@ export default function Contact() {
             <h2 className="fluid-copy type-section-title font-display min-h-[0.96em] font-semibold text-porcelain">
               {defaultPhrase}
             </h2>
-            <p className="mt-7 max-w-2xl text-base leading-8 text-white/58">
-              I am interested in internships, AI product work, cloud-heavy
-              systems, and small teams where design taste matters as much as
-              throughput.
+            <p className="mt-7 max-w-2xl text-base leading-8 text-white/58 max-[640px]:mt-5">
+              I&apos;m looking for internships and full-time roles in software and AI
+              engineering. I&apos;m interested in AI products, cloud systems, and
+              small teams that care about usability and performance.
             </p>
-            <div className="mt-8">
+            <div className="mt-8 max-[640px]:mt-6">
               <Magnetic>
                 <a
                   href="mailto:kkota3@asu.edu"
                   className="inline-flex h-12 items-center gap-2 rounded-[8px] bg-porcelain px-5 text-sm font-semibold text-ink transition-colors hover:bg-acid"
                   data-cursor="button"
                 >
-                  Start a conversation
+                  Email me
                   <Send size={16} />
                 </a>
               </Magnetic>
@@ -65,8 +76,8 @@ export default function Contact() {
 
           <motion.div
             className="grid content-end divide-y divide-white/10 border-y border-white/10"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={canAnimate ? { opacity: 0, y: 12 } : false}
+            whileInView={canAnimate ? { opacity: 1, y: 0 } : undefined}
             viewport={{ once: true, amount: 0.36 }}
             transition={{ duration: 0.42, delay: 0.06, ease: [0.25, 1, 0.5, 1] }}
           >
@@ -76,11 +87,11 @@ export default function Contact() {
                 href={contact.href}
                 target={contact.href.startsWith("http") ? "_blank" : undefined}
                 rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="flex w-full items-center justify-between gap-4 py-4 transition-colors duration-300 hover:text-cyan"
+                className="flex min-h-11 w-full items-center justify-between gap-4 py-4 transition-colors duration-300 hover:text-cyan"
                 data-cursor="link"
               >
                 <span>
-                  <span className="block text-xs uppercase text-white/42">
+                  <span className="block text-xs uppercase text-white/60">
                     {contact.label}
                   </span>
                   <span className="mt-1 block text-sm font-medium text-porcelain">

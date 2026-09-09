@@ -26,6 +26,7 @@
 html {
   min-width: 320px;
   max-width: 100%;
+  position: relative;
   background: var(--background);
   color-scheme: dark;
   scroll-padding-top: 120px;
@@ -55,6 +56,17 @@ body::selection {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+  outline: none;
 }
 
 @media (pointer: fine) {
@@ -263,7 +275,15 @@ canvas {
   }
 
   .section-pad {
-    padding-block: clamp(4.5rem, 14vw, 6.5rem);
+    padding-block: clamp(3.5rem, 10vw, 5rem);
+  }
+
+  .article-pad {
+    padding-top: 7rem;
+  }
+
+  .section-pad.hero-pad {
+    padding-top: 5.75rem;
   }
 }
 

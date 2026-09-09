@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
@@ -15,14 +15,28 @@ export function usePageTransition() {
 
 export default function PageTransition({ children }) {
   const pathname = usePathname();
+  const shouldReduceMotion = useReducedMotion();
   const [transitioning, setTransitioning] = useState(false);
+  const [motionReady, setMotionReady] = useState(false);
 
   useEffect(() => {
-    setTransitioning(true);
+    const frame = window.requestAnimationFrame(() => setMotionReady(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
+    if (shouldReduceMotion !== false) {
+      return undefined;
+    }
+
+    const frame = window.requestAnimationFrame(() => setTransitioning(true));
     const timer = window.setTimeout(() => setTransitioning(false), 240);
 
-    return () => window.clearTimeout(timer);
-  }, [pathname]);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+    };
+  }, [pathname, shouldReduceMotion]);
 
   const value = useMemo(
     () => ({
@@ -31,17 +45,20 @@ export default function PageTransition({ children }) {
     }),
     [pathname, transitioning],
   );
+  const canAnimate = motionReady && shouldReduceMotion === false;
 
   return (
     <PageTransitionContext.Provider value={value}>
       <AnimatePresence mode="sync" initial={false}>
         <motion.main
           key={pathname}
+          id="main-content"
+          tabIndex={-1}
           className={transitioning ? "pointer-events-none" : undefined}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -4 }}
-          transition={{ duration: 0.22, ease: [0.25, 1, 0.5, 1] }}
+          initial={canAnimate ? { opacity: 0, y: 6 } : false}
+          animate={canAnimate ? { opacity: 1, y: 0 } : undefined}
+          exit={canAnimate ? { opacity: 0, y: -4 } : undefined}
+          transition={canAnimate ? { duration: 0.22, ease: [0.25, 1, 0.5, 1] } : undefined}
         >
           {children}
         </motion.main>
